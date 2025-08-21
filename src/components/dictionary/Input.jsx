@@ -7,7 +7,7 @@ export default function Input({ value, onChange, placeholder, isDark }) {
         isDark ? "border-zinc-700 bg-zinc-800" : "border-zinc-300 bg-white"
       }`}
     >
-      <Search className="size-4" />
+      <Search className="w-4 h-4" />
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}

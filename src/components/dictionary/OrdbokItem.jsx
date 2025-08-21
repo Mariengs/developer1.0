@@ -23,7 +23,25 @@ export default function OrdbokItem({ item, isDark }) {
       await navigator.clipboard.writeText(item.example);
       setCopied(true);
       setTimeout(() => setCopied(false), 1200);
-    } catch {}
+    } catch (err) {
+      console.error("Clipboard copy failed:", err);
+
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = item.example;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1200);
+      } catch (fallbackErr) {
+        console.error("Fallback copy failed:", fallbackErr);
+      }
+    }
   }
 
   return (
@@ -38,7 +56,8 @@ export default function OrdbokItem({ item, isDark }) {
               }`}
             >
               <span className="inline-flex items-center gap-1">
-                <Tag className="size-3" /> {item.category}
+                <Tag className="w-3 h-3" />
+                {item.category}
               </span>
               {item.aliases?.length ? (
                 <span>Alias: {item.aliases.join(", ")}</span>
@@ -58,9 +77,9 @@ export default function OrdbokItem({ item, isDark }) {
               aria-controls={`desc-${item.term}`}
             >
               {open ? (
-                <ChevronUp className="size-4" />
+                <ChevronUp className="w-4 h-4" />
               ) : (
-                <ChevronDown className="size-4" />
+                <ChevronDown className="w-4 h-4" />
               )}
               {open ? "Skjul" : "Vis"}
             </button>
@@ -82,7 +101,7 @@ export default function OrdbokItem({ item, isDark }) {
               rel="noopener noreferrer"
               className={linkClassFor(item.category)}
             >
-              <ExternalLink className="size-3" />
+              <ExternalLink className="w-3 h-3" />
               Les mer {domain && <span className="opacity-80">({domain})</span>}
             </a>
           </div>
@@ -96,7 +115,7 @@ export default function OrdbokItem({ item, isDark }) {
                   isDark ? "text-zinc-500" : "text-zinc-600"
                 }`}
               >
-                <BookOpen className="size-3" /> Eksempel
+                <BookOpen className="w-3 h-3" /> Eksempel
               </div>
               <button
                 onClick={copyExample}
@@ -108,9 +127,9 @@ export default function OrdbokItem({ item, isDark }) {
                 title="Kopier eksempel"
               >
                 {copied ? (
-                  <Check className="size-3" />
+                  <Check className="w-3 h-3" />
                 ) : (
-                  <Copy className="size-3" />
+                  <Copy className="w-3 h-3" />
                 )}
                 {copied ? "Kopiert!" : "Kopier"}
               </button>
