@@ -45,7 +45,9 @@ export default function MyDictionary() {
   useEffect(() => {
     try {
       localStorage.setItem("theme", theme);
-    } catch {}
+    } catch (e) {
+      void e;
+    }
   }, [theme]);
 
   // Sort/filter

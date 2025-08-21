@@ -1,0 +1,27 @@
+.nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--card-border);
+  background: var(--surface);
+}
+.brand {
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  margin-right: auto;
+}
+.links a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.links a:hover {
+  background: var(--surface-2);
+}
+.active {
+  background: var(--surface-2);
+  outline: 2px solid var(--ring);
+}
