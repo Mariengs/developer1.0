@@ -1,0 +1,9 @@
+.wrapper {
+  min-height: 100vh;
+}
+.header {
+  margin-bottom: 2rem;
+}
+.count {
+  font-size: 0.875rem;
+}
