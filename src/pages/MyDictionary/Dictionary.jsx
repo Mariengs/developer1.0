@@ -77,19 +77,20 @@ export default function MyDictionary() {
 
   return (
     <div
-      className={`${styles.wrapper} ${
-        isDark ? "bg-zinc-900 text-zinc-50" : "bg-zinc-50 text-zinc-900"
-      }`}
+      className={[
+        styles.wrapper,
+        isDark ? styles.wrapperDark : styles.wrapperLight,
+      ].join(" ")}
     >
       <div className="mx-auto max-w-4xl p-6 md:p-10">
-        <header className={`${styles.header} flex flex-col gap-2`}>
+        <header className={styles.header}>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
             Interaktiv frontend-ordbok
           </h1>
           <p
-            className={`mt-1 text-sm ${
-              isDark ? "text-zinc-300" : "text-zinc-700"
-            }`}
+            className={
+              isDark ? "text-sm text-zinc-300" : "text-sm text-zinc-700"
+            }
           >
             Søk etter begreper innen React, JavaScript, CSS, web og backend.
             Klikk «Vis» for eksempler og «Les mer».
@@ -109,31 +110,35 @@ export default function MyDictionary() {
         </div>
 
         <div className="flex flex-wrap gap-2 mb-6">
-          {CATEGORIES.map((c) => (
-            <button
-              key={c}
-              onClick={() => setCat(c)}
-              className={`rounded-2xl px-3 py-2 text-sm border transition focus:outline-none focus:ring-2 focus:ring-zinc-600 ${
-                cat === c
-                  ? isDark
-                    ? "bg-zinc-700 text-white border-zinc-600"
-                    : "bg-zinc-200 text-zinc-900 border-zinc-300"
-                  : isDark
-                  ? "bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700"
-                  : "bg-white text-zinc-900 border-zinc-300 hover:bg-zinc-100"
-              }`}
-              aria-pressed={cat === c}
-            >
-              {c}
-            </button>
-          ))}
+          {CATEGORIES.map((c) => {
+            const base = styles.categoryBtn;
+            const mode = isDark
+              ? styles.categoryBtnDark
+              : styles.categoryBtnLight;
+            const active = isDark
+              ? styles.categoryBtnActiveDark
+              : styles.categoryBtnActiveLight;
+            const cls = [base, mode, cat === c ? active : ""].join(" ");
+
+            return (
+              <button
+                key={c}
+                onClick={() => setCat(c)}
+                className={cls}
+                aria-pressed={cat === c}
+              >
+                {c}
+              </button>
+            );
+          })}
         </div>
 
         <div className="mb-4 flex items-center justify-between gap-3">
           <div
-            className={`${styles.count} ${
-              isDark ? "text-zinc-300" : "text-zinc-700"
-            }`}
+            className={[
+              styles.count,
+              isDark ? "text-zinc-300" : "text-zinc-700",
+            ].join(" ")}
           >
             <span className="mr-2">Treff:</span>
             <Badge isDark={isDark}>{results.length}</Badge>
@@ -149,16 +154,13 @@ export default function MyDictionary() {
 
         {results.length === 0 ? (
           <div
-            className={`rounded-2xl border p-4 ${
-              isDark
-                ? "border-zinc-800 bg-zinc-900"
-                : "border-zinc-200 bg-white"
-            }`}
+            className={[
+              styles.emptyCard,
+              isDark ? styles.emptyCardDark : styles.emptyCardLight,
+            ].join(" ")}
           >
             <p
-              className={`text-sm ${
-                isDark ? "text-zinc-200" : "text-zinc-700"
-              }`}
+              className={isDark ? styles.emptyTextDark : styles.emptyTextLight}
             >
               Ingen treff. Prøv et annet søkeord eller velg en annen kategori.
             </p>

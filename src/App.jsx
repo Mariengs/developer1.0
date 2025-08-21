@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import MyDictionary from "../pages/MyDictionary/Dictionary.jsx";
+import MyDictionary from "./pages/MyDictionary/Dictionary.jsx";
 
 export default function App() {
   return (

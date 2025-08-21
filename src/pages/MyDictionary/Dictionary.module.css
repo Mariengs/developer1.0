@@ -1,9 +1,53 @@
+/* Page wrapper + tema */
 .wrapper {
-  min-height: 100vh;
+  @apply min-h-screen;
 }
+.wrapperLight {
+  @apply bg-zinc-50 text-zinc-900;
+}
+.wrapperDark {
+  @apply bg-zinc-900 text-zinc-50;
+}
+
+/* Header + “Treff”-teller */
 .header {
-  margin-bottom: 2rem;
+  @apply mb-8 flex flex-col gap-2;
 }
 .count {
-  font-size: 0.875rem;
+  @apply text-sm;
+}
+
+/* Kategori-knapper */
+.categoryBtn {
+  @apply rounded-2xl px-3 py-2 text-sm border transition
+         focus:outline-none focus:ring-2 focus:ring-zinc-600;
+}
+.categoryBtnLight {
+  @apply bg-white text-zinc-900 border-zinc-300 hover:bg-zinc-100;
+}
+.categoryBtnDark {
+  @apply bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700;
+}
+.categoryBtnActiveLight {
+  @apply bg-zinc-200 text-zinc-900 border-zinc-300;
+}
+.categoryBtnActiveDark {
+  @apply bg-zinc-700 text-white border-zinc-600;
+}
+
+/* Tomt resultat-kort (fallback) */
+.emptyCard {
+  @apply rounded-2xl border p-4;
+}
+.emptyCardLight {
+  @apply bg-white border-zinc-200;
+}
+.emptyCardDark {
+  @apply bg-zinc-900 border-zinc-800;
+}
+.emptyTextLight {
+  @apply text-sm text-zinc-700;
+}
+.emptyTextDark {
+  @apply text-sm text-zinc-200;
 }

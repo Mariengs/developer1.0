@@ -1,0 +1,11 @@
+.card {
+  @apply rounded-2xl border p-4 shadow-sm transition-colors duration-150;
+}
+
+.light {
+  @apply bg-white border-zinc-300 hover:bg-zinc-50;
+}
+
+.dark {
+  @apply bg-zinc-900 border-zinc-700 hover:bg-zinc-800;
+}
