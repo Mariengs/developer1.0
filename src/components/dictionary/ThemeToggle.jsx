@@ -15,25 +15,30 @@ export default function ThemeToggle({ theme, setTheme }) {
     }
   };
 
+  // Bruk i18n-tekst kun som tooltip/aria-label (ikke synlig i UI)
+  const label = isDark ? t("btn.light") : t("btn.dark");
+
   return (
     <button
       onClick={onClick}
+      aria-label={label}
+      title={label}
+      aria-pressed={isDark}
       style={{
         display: "inline-flex",
-        gap: 8,
         alignItems: "center",
+        justifyContent: "center",
+        width: 36,
+        height: 36,
         border: "1px solid var(--card-border)",
-        borderRadius: 12,
-        padding: "8px 12px",
+        borderRadius: 10,
         background: "var(--surface)",
         color: "var(--text)",
         cursor: "pointer",
+        lineHeight: 0,
       }}
-      aria-pressed={isDark}
-      title={isDark ? t("btn.light") : t("btn.dark")}
     >
-      {isDark ? <SunMedium size={16} /> : <Moon size={16} />}
-      {isDark ? t("btn.light") : t("btn.dark")}
+      {isDark ? <SunMedium size={18} /> : <Moon size={18} />}
     </button>
   );
 }

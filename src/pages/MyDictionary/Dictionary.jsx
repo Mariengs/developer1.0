@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useI18n } from "../../i18n/useI18n.js";
 import { DATA } from "../../data/dictionary.js";
 import Badge from "../../components/dictionary/Badge.jsx";
 import Input from "../../components/dictionary/Input.jsx";
 import SortBar from "../../components/dictionary/SortBar.jsx";
-import ThemeToggle from "../../components/dictionary/ThemeToggle.jsx";
 import OrdbokItem from "../../components/dictionary/OrdbokItem.jsx";
 import { categoryLabel } from "../../lib/categoryLabel.js";
 import { pickDescription } from "../../lib/localeUtils.js";
@@ -18,28 +17,6 @@ export default function MyDictionary() {
   // Søk/kategori
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(ALL);
-
-  // Tema: kun light/dark + lagre i localStorage
-  const [theme, setTheme] = useState(() => {
-    try {
-      const saved = localStorage.getItem("theme");
-      if (saved === "light" || saved === "dark") return saved;
-      const prefersDark = window.matchMedia?.(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      return prefersDark ? "dark" : "light";
-    } catch {
-      return "light";
-    }
-  });
-  const isDark = theme === "dark";
-
-  useEffect(() => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      isDark ? "dark" : "light"
-    );
-  }, [isDark]);
 
   // Sort/filter
   const [sortKey, setSortKey] = useState("term");
@@ -66,7 +43,7 @@ export default function MyDictionary() {
       if (!inCat) return false;
       if (!text) return true;
 
-      const desc = pickDescription(d, lang); // <- språkbevisst beskrivelse
+      const desc = pickDescription(d, lang);
 
       const hay = [
         d.term,
@@ -81,7 +58,7 @@ export default function MyDictionary() {
 
       return hay.includes(text);
     });
-  }, [q, cat, withDerived, lang]); // <- reager når språk endres
+  }, [q, cat, withDerived, lang]);
 
   const results = useMemo(() => {
     const arr = [...filtered];
@@ -110,17 +87,6 @@ export default function MyDictionary() {
             {t("app.title")}
           </h1>
           <p>{t("app.subtitle")}</p>
-
-          <div
-            style={{
-              display: "flex",
-              gap: 8,
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-            }}
-          >
-            <ThemeToggle theme={theme} setTheme={setTheme} />
-          </div>
         </header>
 
         <div style={{ marginBottom: 16 }}>

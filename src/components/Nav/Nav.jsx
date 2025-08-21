@@ -1,7 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
+import ThemeToggle from "../dictionary/ThemeToggle.jsx";
 import LanguageToggle from "../LanguageToggle/LanguageToggle.jsx";
+import logo from "../../assets/logo.svg";
 
-export default function Nav() {
+export default function Nav({ theme, setTheme }) {
   return (
     <nav
       style={{
@@ -26,7 +28,7 @@ export default function Nav() {
         }}
       >
         <img
-          src="./public/brand/logo.svg"
+          src={logo}
           alt="Developer Help"
           width={28}
           height={28}
@@ -62,7 +64,11 @@ export default function Nav() {
         VSCode
       </NavLink>
 
-      <div style={{ marginLeft: 8 }}>
+      {/* Knapperekke: Theme først, så språk */}
+      <div
+        style={{ display: "flex", alignItems: "center", gap: 8, marginLeft: 8 }}
+      >
+        <ThemeToggle theme={theme} setTheme={setTheme} />
         <LanguageToggle />
       </div>
     </nav>
