@@ -4,12 +4,15 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
 import MyDictionary from "../pages/MyDictionary/Dictionary.jsx";
-// ...
-<Router>
-  <Routes>
-    <Route path="/dictionary" element={<MyDictionary />} />
-    {/* osv */}
-  </Routes>
-</Router>;
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/dictionary" replace />} />
+        <Route path="/dictionary" element={<MyDictionary />} />
+      </Routes>
+    </Router>
+  );
+}

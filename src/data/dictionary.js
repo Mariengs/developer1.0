@@ -1,4 +1,4 @@
-const DATA = [
+export const DATA = [
   {
     term: "Accessibility",
     aliases: ["Tilgjengelighet", "a11y"],
