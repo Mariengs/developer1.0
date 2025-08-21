@@ -10,9 +10,12 @@ import {
 } from "lucide-react";
 import Card from "./Card.jsx";
 import { getDomain, linkClassFor } from "../../lib/categoryStyles.js";
+import { useI18n } from "../../i18n/I18nProvider.jsx";
 import styles from "./OrdbokItem.module.css";
 
 export default function OrdbokItem({ item }) {
+  const { t } = useI18n();
+
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const domainKey = item.link ? getDomain(item.link) : "default";
@@ -41,6 +44,7 @@ export default function OrdbokItem({ item }) {
       }
     }
   }
+
   return (
     <Card>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -71,7 +75,7 @@ export default function OrdbokItem({ item }) {
               ) : (
                 <ChevronDown className={styles.iconSm} />
               )}
-              {open ? "Skjul" : "Vis"}
+              {open ? t("btn.hide") : t("btn.show")}
             </button>
           )}
         </div>
@@ -88,11 +92,8 @@ export default function OrdbokItem({ item }) {
               rel="noopener noreferrer"
               className={linkClassFor(item.category, domainKey)}
             >
-              <ExternalLink
-                className="icon"
-                style={{ width: 12, height: 12 }}
-              />
-              Les mer ({domainKey})
+              <ExternalLink style={{ width: 12, height: 12 }} />
+              {t("link.readMore")} {domainKey && `(${domainKey})`}
             </a>
           </div>
         )}
@@ -101,15 +102,15 @@ export default function OrdbokItem({ item }) {
           <div className={styles.codeWrap}>
             <div className={styles.codeHead}>
               <div className={styles.codeLabel}>
-                <BookOpen size={12} /> Eksempel
+                <BookOpen size={12} /> {t("example.label")}
               </div>
               <button
                 onClick={copyExample}
                 className={styles.copyBtn}
-                title="Kopier eksempel"
+                title={t("copy.copy")}
               >
                 {copied ? <Check size={12} /> : <Copy size={12} />}
-                {copied ? "Kopiert!" : "Kopier"}
+                {copied ? t("copy.copied") : t("copy.copy")}
               </button>
             </div>
             <pre className={styles.pre}>

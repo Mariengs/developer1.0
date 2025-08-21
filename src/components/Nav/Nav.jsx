@@ -1,26 +1,56 @@
 import { Link, NavLink } from "react-router-dom";
-import styles from "./Nav.module.css";
+import LanguageToggle from "../LanguageToggle/LanguageToggle.jsx";
 
 export default function Nav() {
   return (
-    <nav className={styles.nav}>
-      <Link to="/" className={styles.brand}>
+    <nav
+      style={{
+        display: "flex",
+        gap: 16,
+        alignItems: "center",
+        padding: "12px 16px",
+        borderBottom: "1px solid var(--card-border)",
+        background: "var(--surface)",
+      }}
+    >
+      <Link
+        to="/"
+        style={{
+          fontWeight: 700,
+          color: "var(--text)",
+          textDecoration: "none",
+          marginRight: "auto",
+        }}
+      >
         Developer Help
       </Link>
-      <div className={styles.links}>
-        <NavLink
-          to="/"
-          end
-          className={({ isActive }) => (isActive ? styles.active : undefined)}
-        >
-          Dictionary
-        </NavLink>
-        <NavLink
-          to="/vscode"
-          className={({ isActive }) => (isActive ? styles.active : undefined)}
-        >
-          VSCode
-        </NavLink>
+      <NavLink
+        to="/"
+        end
+        style={({ isActive }) => ({
+          padding: "6px 10px",
+          borderRadius: 8,
+          textDecoration: "none",
+          color: "var(--text)",
+          background: isActive ? "var(--surface-2)" : "transparent",
+        })}
+      >
+        Dictionary
+      </NavLink>
+      <NavLink
+        to="/vscode"
+        style={({ isActive }) => ({
+          padding: "6px 10px",
+          borderRadius: 8,
+          textDecoration: "none",
+          color: "var(--text)",
+          background: isActive ? "var(--surface-2)" : "transparent",
+        })}
+      >
+        VSCode
+      </NavLink>
+      <div style={{ marginLeft: 8 }}>
+        <LanguageToggle />
       </div>
     </nav>
   );

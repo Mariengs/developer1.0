@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useI18n } from "../../i18n/I18nProvider.jsx";
 import { DATA } from "../../data/dictionary.js";
 import Badge from "../../components/dictionary/Badge.jsx";
 import Input from "../../components/dictionary/Input.jsx";
@@ -7,9 +8,14 @@ import ThemeToggle from "../../components/dictionary/ThemeToggle.jsx";
 import OrdbokItem from "../../components/dictionary/OrdbokItem.jsx";
 import styles from "./Dictionary.module.css";
 
+// Intern “Alle”-verdi som ikke oversettes i filtreringslogikken
+const ALL = "__ALL__";
+
 export default function MyDictionary() {
+  const { t } = useI18n();
+
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState("Alle");
+  const [cat, setCat] = useState(ALL);
 
   // Tema
   const [theme, setTheme] = useState(() => {
@@ -53,10 +59,12 @@ export default function MyDictionary() {
   // Sort/filter
   const [sortKey, setSortKey] = useState("term");
   const [sortDir, setSortDir] = useState("asc");
+
   const CATEGORIES = useMemo(
-    () => ["Alle", ...Array.from(new Set(DATA.map((d) => d.category))).sort()],
+    () => [ALL, ...Array.from(new Set(DATA.map((d) => d.category))).sort()],
     []
   );
+
   const withDerived = useMemo(
     () =>
       DATA.map((d) => ({
@@ -65,10 +73,11 @@ export default function MyDictionary() {
       })),
     []
   );
+
   const filtered = useMemo(() => {
     const text = q.trim().toLowerCase();
     return withDerived.filter((d) => {
-      const inCat = cat === "Alle" || d.category === cat;
+      const inCat = cat === ALL || d.category === cat;
       if (!inCat) return false;
       if (!text) return true;
       const hay = [
@@ -109,12 +118,10 @@ export default function MyDictionary() {
               letterSpacing: -0.2,
             }}
           >
-            Interaktiv frontend-ordbok
+            {t("app.title")}
           </h1>
-          <p>
-            Søk etter begreper innen React, JavaScript, CSS, web og backend.
-            Klikk «Vis» for eksempler og «Les mer».
-          </p>
+          <p>{t("app.subtitle")}</p>
+
           <div
             style={{
               display: "flex",
@@ -131,7 +138,7 @@ export default function MyDictionary() {
           <Input
             value={q}
             onChange={setQ}
-            placeholder="Søk: f.eks. props, useEffect, grid …"
+            placeholder={t("search.placeholder")}
           />
         </div>
 
@@ -143,14 +150,14 @@ export default function MyDictionary() {
               className={styles.kbtn}
               aria-pressed={cat === c}
             >
-              {c}
+              {c === ALL ? t("categories.all") : c}
             </button>
           ))}
         </div>
 
         <div className={styles.row}>
           <div className={styles.count}>
-            <span>Treff:</span>
+            <span>{t("results.label")}:</span>
             <Badge>{results.length}</Badge>
           </div>
           <SortBar
@@ -162,9 +169,7 @@ export default function MyDictionary() {
         </div>
 
         {results.length === 0 ? (
-          <div className={styles.empty}>
-            Ingen treff. Prøv et annet søkeord eller velg en annen kategori.
-          </div>
+          <div className={styles.empty}>{t("empty.noResults")}</div>
         ) : (
           <div className={styles.grid}>
             {results.map((item) => (
