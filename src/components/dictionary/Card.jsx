@@ -1,10 +1,12 @@
-export default function Card({ children, isDark }) {
+// src/components/dictionary/Card.jsx
+export default function Card({ children, isDark, className = "" }) {
+  const base =
+    "rounded-2xl border p-4 shadow-sm transition-colors duration-150";
+  const light = "bg-white border-zinc-300 hover:bg-zinc-50";
+  const dark = "bg-zinc-900 border-zinc-700 hover:bg-zinc-800";
+
   return (
-    <div
-      className={`rounded-2xl border shadow-sm p-4 ${
-        isDark ? "border-zinc-800 bg-zinc-900" : "border-zinc-200 bg-white"
-      }`}
-    >
+    <div className={[base, isDark ? dark : light, className].join(" ")}>
       {children}
     </div>
   );
