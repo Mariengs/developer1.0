@@ -13,6 +13,7 @@ import { getDomain, linkClassFor } from "../../lib/categoryStyles.js";
 import { useI18n } from "../../i18n/useI18n.js";
 import { categoryLabel } from "../../lib/categoryLabel.js";
 import styles from "./OrdbokItem.module.css";
+import { pickDescription } from "../../lib/localeUtils.js";
 
 export default function OrdbokItem({ item }) {
   const { t, lang } = useI18n();
@@ -84,7 +85,7 @@ export default function OrdbokItem({ item }) {
         </div>
 
         <p id={`desc-${item.term}`} className={styles.desc}>
-          {item.description}
+          {pickDescription(item, lang)}
         </p>
 
         {item.link && (

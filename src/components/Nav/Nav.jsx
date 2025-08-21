@@ -16,14 +16,25 @@ export default function Nav() {
       <Link
         to="/"
         style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
           fontWeight: 700,
           color: "var(--text)",
           textDecoration: "none",
           marginRight: "auto",
         }}
       >
-        Developer Help
+        <img
+          src="./public/brand/logo.svg"
+          alt="Developer Help"
+          width={28}
+          height={28}
+          style={{ display: "block" }}
+        />
+        <span>Developer Help</span>
       </Link>
+
       <NavLink
         to="/"
         end
@@ -37,6 +48,7 @@ export default function Nav() {
       >
         Dictionary
       </NavLink>
+
       <NavLink
         to="/vscode"
         style={({ isActive }) => ({
@@ -49,6 +61,7 @@ export default function Nav() {
       >
         VSCode
       </NavLink>
+
       <div style={{ marginLeft: 8 }}>
         <LanguageToggle />
       </div>

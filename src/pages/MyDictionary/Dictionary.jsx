@@ -7,6 +7,7 @@ import SortBar from "../../components/dictionary/SortBar.jsx";
 import ThemeToggle from "../../components/dictionary/ThemeToggle.jsx";
 import OrdbokItem from "../../components/dictionary/OrdbokItem.jsx";
 import { categoryLabel } from "../../lib/categoryLabel.js";
+import { pickDescription } from "../../lib/localeUtils.js";
 import styles from "./Dictionary.module.css";
 
 const ALL = "__ALL__";
@@ -64,19 +65,23 @@ export default function MyDictionary() {
       const inCat = cat === ALL || d.category === cat;
       if (!inCat) return false;
       if (!text) return true;
+
+      const desc = pickDescription(d, lang); // <- språkbevisst beskrivelse
+
       const hay = [
         d.term,
         d.category,
         d._domain,
         ...(d.aliases || []),
-        d.description || "",
+        desc || "",
         d.example || "",
       ]
         .join(" ")
         .toLowerCase();
+
       return hay.includes(text);
     });
-  }, [q, cat, withDerived]);
+  }, [q, cat, withDerived, lang]); // <- reager når språk endres
 
   const results = useMemo(() => {
     const arr = [...filtered];
