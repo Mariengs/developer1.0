@@ -1,0 +1,25 @@
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 8px 12px;
+  background: var(--surface);
+  box-shadow: 0 1px 0 var(--ring) inset;
+}
+.field {
+  border: 0;
+  outline: none;
+  width: 100%;
+  background: transparent;
+  color: var(--text);
+}
+.field::placeholder {
+  color: var(--muted);
+}
+.icon {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+}

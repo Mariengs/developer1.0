@@ -1,34 +1,38 @@
 import { SunMedium, Moon, Laptop } from "lucide-react";
+import styles from "./ThemeToggle.module.css";
 
-export default function ThemeToggle({ theme, setTheme, isDark }) {
-  const cls = `inline-flex items-center gap-1 rounded-xl border px-3 py-2 text-sm transition ${
-    isDark
-      ? "bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700"
-      : "bg-white text-zinc-900 border-zinc-300 hover:bg-zinc-100"
-  }`;
+export default function ThemeToggle({ theme, setTheme }) {
+  const apply = (k) => {
+    setTheme(k);
+    try {
+      localStorage.setItem("theme", k);
+    } catch (e) {
+      void e;
+    }
+  };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={styles.row}>
       <button
-        className={cls}
-        onClick={() => setTheme("light")}
+        className={styles.btn}
+        onClick={() => apply("light")}
         aria-pressed={theme === "light"}
       >
-        <SunMedium className="size-4" /> Lys
+        <SunMedium className={styles.icon} /> Lys
       </button>
       <button
-        className={cls}
-        onClick={() => setTheme("dark")}
+        className={styles.btn}
+        onClick={() => apply("dark")}
         aria-pressed={theme === "dark"}
       >
-        <Moon className="size-4" /> Mørk
+        <Moon className={styles.icon} /> Mørk
       </button>
       <button
-        className={cls}
-        onClick={() => setTheme("system")}
+        className={styles.btn}
+        onClick={() => apply("system")}
         aria-pressed={theme === "system"}
       >
-        <Laptop className="size-4" /> System
+        <Laptop className={styles.icon} /> System
       </button>
     </div>
   );

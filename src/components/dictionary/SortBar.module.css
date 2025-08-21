@@ -1,0 +1,25 @@
+.wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.select,
+.btn {
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+}
+.select:hover,
+.btn:hover {
+  background: var(--surface-2);
+}
+.icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: -2px;
+  margin-right: 4px;
+}

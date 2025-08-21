@@ -1,0 +1,25 @@
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.btn {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.btn[aria-pressed="true"] {
+  background: var(--surface-2);
+  outline: 2px solid var(--ring);
+}
+.icon {
+  width: 16px;
+  height: 16px;
+}

@@ -1,14 +1,63 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* src/index.css — ren base */
+:root {
+  --bg: #0b0b0c;
+  --text: #eaeaec;
+  --muted: #8b8b91;
+
+  --card-bg: #111114;
+  --card-border: #222229;
+  --card-hover: #16161a;
+
+  --accent: #4b7cff;
+
+  --surface: #0f0f12;
+  --surface-2: #151519;
+  --ring: rgba(255, 255, 255, 0.08);
+
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  --bg: #f7f7fb;
+  --text: #121216;
+  --muted: #666673;
+
+  --card-bg: #ffffff;
+  --card-border: #e6e6ee;
+  --card-hover: #f6f6fb;
+
+  --accent: #2f63ff;
+
+  --surface: #ffffff;
+  --surface-2: #f7f7fb;
+  --ring: rgba(0, 0, 0, 0.08);
+
+  color-scheme: light;
+}
 
 html,
 body,
 #root {
   height: 100%;
 }
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
-  background: transparent;
-  color: inherit;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+button {
+  font: inherit;
 }

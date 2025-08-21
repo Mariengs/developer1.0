@@ -10,30 +10,51 @@ import styles from "./Dictionary.module.css";
 export default function MyDictionary() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("Alle");
-  const [theme, setTheme] = useState("system");
 
-  const isSystemDark =
+  // Tema
+  const [theme, setTheme] = useState(() => {
+    try {
+      const saved = localStorage.getItem("theme");
+      return saved === "light" || saved === "dark" || saved === "system"
+        ? saved
+        : "system";
+    } catch {
+      return "system";
+    }
+  });
+
+  const [systemDark, setSystemDark] = useState(
     typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  const isDark = theme === "system" ? isSystemDark : theme === "dark";
-
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+  useEffect(() => {
+    if (!window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = (e) => setSystemDark(e.matches);
+    mq.addEventListener?.("change", onChange);
+    return () => mq.removeEventListener?.("change", onChange);
+  }, []);
+  const isDark = theme === "system" ? systemDark : theme === "dark";
   useEffect(() => {
     document.documentElement.setAttribute(
       "data-theme",
       isDark ? "dark" : "light"
     );
   }, [isDark]);
+  useEffect(() => {
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {}
+  }, [theme]);
 
+  // Sort/filter
   const [sortKey, setSortKey] = useState("term");
   const [sortDir, setSortDir] = useState("asc");
-
   const CATEGORIES = useMemo(
     () => ["Alle", ...Array.from(new Set(DATA.map((d) => d.category))).sort()],
     []
   );
-
   const withDerived = useMemo(
     () =>
       DATA.map((d) => ({
@@ -42,7 +63,6 @@ export default function MyDictionary() {
       })),
     []
   );
-
   const filtered = useMemo(() => {
     const text = q.trim().toLowerCase();
     return withDerived.filter((d) => {
@@ -76,99 +96,77 @@ export default function MyDictionary() {
   }, [filtered, sortKey, sortDir]);
 
   return (
-    <div
-      className={[
-        styles.wrapper,
-        isDark ? styles.wrapperDark : styles.wrapperLight,
-      ].join(" ")}
-    >
-      <div className="mx-auto max-w-4xl p-6 md:p-10">
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
         <header className={styles.header}>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <h1
+            style={{
+              margin: 0,
+              fontSize: 32,
+              fontWeight: 800,
+              letterSpacing: -0.2,
+            }}
+          >
             Interaktiv frontend-ordbok
           </h1>
-          <p
-            className={
-              isDark ? "text-sm text-zinc-300" : "text-sm text-zinc-700"
-            }
-          >
+          <p>
             Søk etter begreper innen React, JavaScript, CSS, web og backend.
             Klikk «Vis» for eksempler og «Les mer».
           </p>
-          <div className="flex flex-wrap gap-2 justify-between mt-2">
-            <ThemeToggle theme={theme} setTheme={setTheme} isDark={isDark} />
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+            }}
+          >
+            <ThemeToggle theme={theme} setTheme={setTheme} />
           </div>
         </header>
 
-        <div className="mb-4">
+        <div style={{ marginBottom: 16 }}>
           <Input
             value={q}
             onChange={setQ}
             placeholder="Søk: f.eks. props, useEffect, grid …"
-            isDark={isDark}
           />
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-6">
-          {CATEGORIES.map((c) => {
-            const base = styles.categoryBtn;
-            const mode = isDark
-              ? styles.categoryBtnDark
-              : styles.categoryBtnLight;
-            const active = isDark
-              ? styles.categoryBtnActiveDark
-              : styles.categoryBtnActiveLight;
-            const cls = [base, mode, cat === c ? active : ""].join(" ");
-
-            return (
-              <button
-                key={c}
-                onClick={() => setCat(c)}
-                className={cls}
-                aria-pressed={cat === c}
-              >
-                {c}
-              </button>
-            );
-          })}
+        <div className={styles.filters}>
+          {CATEGORIES.map((c) => (
+            <button
+              key={c}
+              onClick={() => setCat(c)}
+              className={styles.kbtn}
+              aria-pressed={cat === c}
+            >
+              {c}
+            </button>
+          ))}
         </div>
 
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <div
-            className={[
-              styles.count,
-              isDark ? "text-zinc-300" : "text-zinc-700",
-            ].join(" ")}
-          >
-            <span className="mr-2">Treff:</span>
-            <Badge isDark={isDark}>{results.length}</Badge>
+        <div className={styles.row}>
+          <div className={styles.count}>
+            <span>Treff:</span>
+            <Badge>{results.length}</Badge>
           </div>
           <SortBar
             sortKey={sortKey}
             sortDir={sortDir}
             setSortKey={setSortKey}
             setSortDir={setSortDir}
-            isDark={isDark}
           />
         </div>
 
         {results.length === 0 ? (
-          <div
-            className={[
-              styles.emptyCard,
-              isDark ? styles.emptyCardDark : styles.emptyCardLight,
-            ].join(" ")}
-          >
-            <p
-              className={isDark ? styles.emptyTextDark : styles.emptyTextLight}
-            >
-              Ingen treff. Prøv et annet søkeord eller velg en annen kategori.
-            </p>
+          <div className={styles.empty}>
+            Ingen treff. Prøv et annet søkeord eller velg en annen kategori.
           </div>
         ) : (
-          <div className="grid gap-4">
+          <div className={styles.grid}>
             {results.map((item) => (
-              <OrdbokItem key={item.term} item={item} isDark={isDark} />
+              <OrdbokItem key={item.term} item={item} />
             ))}
           </div>
         )}

@@ -1,53 +1,71 @@
-/* Page wrapper + tema */
 .wrapper {
-  @apply min-h-screen;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
 }
-.wrapperLight {
-  @apply bg-zinc-50 text-zinc-900;
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px;
 }
-.wrapperDark {
-  @apply bg-zinc-900 text-zinc-50;
-}
-
-/* Header + “Treff”-teller */
 .header {
-  @apply mb-8 flex flex-col gap-2;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
+.header p {
+  margin: 0;
+  color: var(--muted);
+}
+.grid {
+  display: grid;
+  gap: 16px;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 24px 0;
+}
+
+.kbtn {
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 8px 12px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+}
+.kbtn:hover {
+  background: var(--surface-2);
+}
+.kbtn[aria-pressed="true"] {
+  background: var(--surface-2);
+  outline: 2px solid var(--ring);
+}
+
 .count {
-  @apply text-sm;
+  font-size: 14px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 16px 0;
 }
 
-/* Kategori-knapper */
-.categoryBtn {
-  @apply rounded-2xl px-3 py-2 text-sm border transition
-         focus:outline-none focus:ring-2 focus:ring-zinc-600;
-}
-.categoryBtnLight {
-  @apply bg-white text-zinc-900 border-zinc-300 hover:bg-zinc-100;
-}
-.categoryBtnDark {
-  @apply bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700;
-}
-.categoryBtnActiveLight {
-  @apply bg-zinc-200 text-zinc-900 border-zinc-300;
-}
-.categoryBtnActiveDark {
-  @apply bg-zinc-700 text-white border-zinc-600;
-}
-
-/* Tomt resultat-kort (fallback) */
-.emptyCard {
-  @apply rounded-2xl border p-4;
-}
-.emptyCardLight {
-  @apply bg-white border-zinc-200;
-}
-.emptyCardDark {
-  @apply bg-zinc-900 border-zinc-800;
-}
-.emptyTextLight {
-  @apply text-sm text-zinc-700;
-}
-.emptyTextDark {
-  @apply text-sm text-zinc-200;
+.empty {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+  color: var(--muted);
+  font-size: 14px;
 }

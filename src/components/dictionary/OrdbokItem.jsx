@@ -9,13 +9,13 @@ import {
   Check,
 } from "lucide-react";
 import Card from "./Card.jsx";
-import { getDomain } from "../../lib/domains.js";
-import { linkClassFor } from "../../lib/categoryStyles.js";
+import { getDomain, linkClassFor } from "../../lib/categoryStyles.js";
+import styles from "./OrdbokItem.module.css";
 
-export default function OrdbokItem({ item, isDark }) {
+export default function OrdbokItem({ item }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const domain = item.link ? getDomain(item.link) : "";
+  const domainKey = item.link ? getDomain(item.link) : "default";
 
   async function copyExample() {
     if (!item.example) return;
@@ -23,13 +23,11 @@ export default function OrdbokItem({ item, isDark }) {
       await navigator.clipboard.writeText(item.example);
       setCopied(true);
       setTimeout(() => setCopied(false), 1200);
-    } catch (err) {
-      console.error("Clipboard copy failed:", err);
-
+    } catch {
       try {
         const ta = document.createElement("textarea");
         ta.value = item.example;
-        ta.setAttribute("readonly", "");
+        ta.readOnly = true;
         ta.style.position = "fixed";
         ta.style.opacity = "0";
         document.body.appendChild(ta);
@@ -39,25 +37,21 @@ export default function OrdbokItem({ item, isDark }) {
         setCopied(true);
         setTimeout(() => setCopied(false), 1200);
       } catch (fallbackErr) {
-        console.error("Fallback copy failed:", fallbackErr);
+        void fallbackErr; // gjør blokken ikke-tom og markerer variabelen som "brukt"
       }
     }
   }
-
   return (
-    <Card isDark={isDark}>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-start justify-between gap-4">
+    <Card>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div
+          style={{ display: "flex", justifyContent: "space-between", gap: 16 }}
+        >
           <div>
-            <h3 className="text-lg font-semibold leading-tight">{item.term}</h3>
-            <div
-              className={`mt-1 flex flex-wrap items-center gap-2 text-xs ${
-                isDark ? "text-zinc-500" : "text-zinc-600"
-              }`}
-            >
-              <span className="inline-flex items-center gap-1">
-                <Tag className="w-3 h-3" />
-                {item.category}
+            <h3 className={styles.title}>{item.term}</h3>
+            <div className={styles.meta}>
+              <span className={styles.metaRow}>
+                <Tag size={12} /> {item.category}
               </span>
               {item.aliases?.length ? (
                 <span>Alias: {item.aliases.join(", ")}</span>
@@ -68,79 +62,57 @@ export default function OrdbokItem({ item, isDark }) {
           {item.example && (
             <button
               onClick={() => setOpen((v) => !v)}
-              className={`inline-flex items-center gap-1 rounded-xl border px-3 py-1 text-sm hover:shadow transition focus:outline-none focus:ring-2 focus:ring-zinc-600 ${
-                isDark
-                  ? "bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700"
-                  : "bg-white text-zinc-900 border-zinc-300 hover:bg-zinc-100"
-              }`}
+              className={styles.actions}
               aria-expanded={open}
               aria-controls={`desc-${item.term}`}
             >
               {open ? (
-                <ChevronUp className="w-4 h-4" />
+                <ChevronUp className={styles.iconSm} />
               ) : (
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className={styles.iconSm} />
               )}
               {open ? "Skjul" : "Vis"}
             </button>
           )}
         </div>
 
-        <p
-          id={`desc-${item.term}`}
-          className={`text-sm ${isDark ? "text-zinc-200" : "text-zinc-800"}`}
-        >
+        <p id={`desc-${item.term}`} className={styles.desc}>
           {item.description}
         </p>
 
         {item.link && (
-          <div className="mt-1">
+          <div className={styles.linkWrap}>
             <a
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={linkClassFor(item.category)}
+              className={linkClassFor(item.category, domainKey)}
             >
-              <ExternalLink className="w-3 h-3" />
-              Les mer {domain && <span className="opacity-80">({domain})</span>}
+              <ExternalLink
+                className="icon"
+                style={{ width: 12, height: 12 }}
+              />
+              Les mer ({domainKey})
             </a>
           </div>
         )}
 
         {item.example && open && (
-          <div className="mt-2">
-            <div className="mb-1 flex items-center justify-between">
-              <div
-                className={`inline-flex items-center gap-2 text-xs uppercase tracking-wide ${
-                  isDark ? "text-zinc-500" : "text-zinc-600"
-                }`}
-              >
-                <BookOpen className="w-3 h-3" /> Eksempel
+          <div className={styles.codeWrap}>
+            <div className={styles.codeHead}>
+              <div className={styles.codeLabel}>
+                <BookOpen size={12} /> Eksempel
               </div>
               <button
                 onClick={copyExample}
-                className={`inline-flex items-center gap-1 rounded-lg border px-2 py-1 text-xs transition focus:outline-none focus:ring-2 focus:ring-zinc-600 ${
-                  isDark
-                    ? "bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700"
-                    : "bg-white text-zinc-900 border-zinc-300 hover:bg-zinc-100"
-                }`}
+                className={styles.copyBtn}
                 title="Kopier eksempel"
               >
-                {copied ? (
-                  <Check className="w-3 h-3" />
-                ) : (
-                  <Copy className="w-3 h-3" />
-                )}
+                {copied ? <Check size={12} /> : <Copy size={12} />}
                 {copied ? "Kopiert!" : "Kopier"}
               </button>
             </div>
-            <pre
-              className={`overflow-auto rounded-xl p-3 text-sm ${
-                isDark
-                  ? "bg-zinc-900 text-zinc-100"
-                  : "bg-zinc-100 text-zinc-900"
-              }`}
-            >
+            <pre className={styles.pre}>
               <code>{item.example}</code>
             </pre>
           </div>

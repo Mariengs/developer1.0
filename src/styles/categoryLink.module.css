@@ -1,0 +1,91 @@
+.link {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  padding: 4px 8px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #fff;
+}
+.mdn {
+  background: #0369a1;
+  border-color: #075985;
+}
+.react {
+  background: #6d28d9;
+  border-color: #5b21b6;
+}
+.next {
+  background: #3730a3;
+  border-color: #312e81;
+}
+.redux {
+  background: #a21caf;
+  border-color: #86198f;
+}
+.tailwind {
+  background: #047857;
+  border-color: #065f46;
+}
+.typescript {
+  background: #c2410c;
+  border-color: #9a3412;
+}
+.vite {
+  background: #065f46;
+  border-color: #064e3b;
+}
+.webpack {
+  background: #1f2937;
+  border-color: #111827;
+}
+.graphql {
+  background: #b91c1c;
+  border-color: #991b1b;
+}
+.jwt {
+  background: #1f2937;
+  border-color: #111827;
+}
+.sass {
+  background: #e11d48;
+  border-color: #be123c;
+}
+.lodash {
+  background: #1f2937;
+  border-color: #111827;
+}
+.cypress {
+  background: #65a30d;
+  border-color: #4d7c0f;
+}
+.jest {
+  background: #65a30d;
+  border-color: #4d7c0f;
+}
+.docker {
+  background: #fb7185;
+  border-color: #f43f5e;
+}
+.webdev {
+  background: #1f2937;
+  border-color: #111827;
+}
+.postgresql {
+  background: #0d9488;
+  border-color: #0f766e;
+}
+.zustand {
+  background: #1f2937;
+  border-color: #111827;
+}
+.default {
+  background: #3f3f46;
+  border-color: #27272a;
+}
+.icon {
+  width: 12px;
+  height: 12px;
+}

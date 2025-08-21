@@ -1,11 +1,13 @@
 .card {
-  @apply rounded-2xl border p-4 shadow-sm transition-colors duration-150;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 0 var(--ring);
+  transition: background 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
-
-.light {
-  @apply bg-white border-zinc-300 hover:bg-zinc-50;
-}
-
-.dark {
-  @apply bg-zinc-900 border-zinc-700 hover:bg-zinc-800;
+.card:hover {
+  background: var(--card-hover);
+  box-shadow: 0 2px 0 var(--ring);
 }
