@@ -1,60 +1,44 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useI18n } from "../../i18n/I18nProvider.jsx";
+import { useI18n } from "../../i18n/useI18n.js";
 import { DATA } from "../../data/dictionary.js";
 import Badge from "../../components/dictionary/Badge.jsx";
 import Input from "../../components/dictionary/Input.jsx";
 import SortBar from "../../components/dictionary/SortBar.jsx";
 import ThemeToggle from "../../components/dictionary/ThemeToggle.jsx";
 import OrdbokItem from "../../components/dictionary/OrdbokItem.jsx";
+import { categoryLabel } from "../../lib/categoryLabel.js";
 import styles from "./Dictionary.module.css";
 
-// Intern “Alle”-verdi som ikke oversettes i filtreringslogikken
 const ALL = "__ALL__";
 
 export default function MyDictionary() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
+  // Søk/kategori
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(ALL);
 
-  // Tema
+  // Tema: kun light/dark + lagre i localStorage
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem("theme");
-      return saved === "light" || saved === "dark" || saved === "system"
-        ? saved
-        : "system";
+      if (saved === "light" || saved === "dark") return saved;
+      const prefersDark = window.matchMedia?.(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      return prefersDark ? "dark" : "light";
     } catch {
-      return "system";
+      return "light";
     }
   });
+  const isDark = theme === "dark";
 
-  const [systemDark, setSystemDark] = useState(
-    typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
-  useEffect(() => {
-    if (!window.matchMedia) return;
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = (e) => setSystemDark(e.matches);
-    mq.addEventListener?.("change", onChange);
-    return () => mq.removeEventListener?.("change", onChange);
-  }, []);
-  const isDark = theme === "system" ? systemDark : theme === "dark";
   useEffect(() => {
     document.documentElement.setAttribute(
       "data-theme",
       isDark ? "dark" : "light"
     );
   }, [isDark]);
-  useEffect(() => {
-    try {
-      localStorage.setItem("theme", theme);
-    } catch (e) {
-      void e;
-    }
-  }, [theme]);
 
   // Sort/filter
   const [sortKey, setSortKey] = useState("term");
@@ -150,7 +134,7 @@ export default function MyDictionary() {
               className={styles.kbtn}
               aria-pressed={cat === c}
             >
-              {c === ALL ? t("categories.all") : c}
+              {c === ALL ? t("categories.all") : categoryLabel(c, lang)}
             </button>
           ))}
         </div>

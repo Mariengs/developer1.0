@@ -1,6 +1,6 @@
 import { SortAsc, SortDesc } from "lucide-react";
 import styles from "./SortBar.module.css";
-import { useI18n } from "../../i18n/I18nProvider.jsx";
+import { useI18n } from "../../i18n/useI18n.js";
 
 export default function SortBar({ sortKey, sortDir, setSortKey, setSortDir }) {
   const { t } = useI18n();

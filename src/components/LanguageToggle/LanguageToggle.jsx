@@ -1,5 +1,5 @@
 import styles from "./LanguageToggle.module.css";
-import { useI18n } from "../../i18n/I18nProvider.jsx";
+import { useI18n } from "../../i18n/useI18n.js";
 
 export default function LanguageToggle() {
   const { lang, setLang } = useI18n();

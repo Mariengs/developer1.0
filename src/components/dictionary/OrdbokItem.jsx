@@ -10,11 +10,12 @@ import {
 } from "lucide-react";
 import Card from "./Card.jsx";
 import { getDomain, linkClassFor } from "../../lib/categoryStyles.js";
-import { useI18n } from "../../i18n/I18nProvider.jsx";
+import { useI18n } from "../../i18n/useI18n.js";
+import { categoryLabel } from "../../lib/categoryLabel.js";
 import styles from "./OrdbokItem.module.css";
 
 export default function OrdbokItem({ item }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -40,7 +41,7 @@ export default function OrdbokItem({ item }) {
         setCopied(true);
         setTimeout(() => setCopied(false), 1200);
       } catch (fallbackErr) {
-        void fallbackErr; // gjør blokken ikke-tom og markerer variabelen som "brukt"
+        void fallbackErr;
       }
     }
   }
@@ -55,10 +56,12 @@ export default function OrdbokItem({ item }) {
             <h3 className={styles.title}>{item.term}</h3>
             <div className={styles.meta}>
               <span className={styles.metaRow}>
-                <Tag size={12} /> {item.category}
+                <Tag size={12} /> {categoryLabel(item.category, lang)}
               </span>
               {item.aliases?.length ? (
-                <span>Alias: {item.aliases.join(", ")}</span>
+                <span>
+                  {t("label.alias")}: {item.aliases.join(", ")}
+                </span>
               ) : null}
             </div>
           </div>
