@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { I18nContext } from "../../i18n/I18nContext.js";
-import ShortcutsPanel from "./ShortcutsPanel.jsx";
+import VscodeShortcutsPanel from "./VscodeShortcutsPanel.jsx";
 import OverviewPanel from "./OverviewPanel.jsx";
 
 export default function VSCode() {
@@ -67,7 +67,7 @@ export default function VSCode() {
 
       {tab === "shortcuts" && (
         <div id="shortcuts">
-          <ShortcutsPanel />
+          <VscodeShortcutsPanel />
         </div>
       )}
     </section>

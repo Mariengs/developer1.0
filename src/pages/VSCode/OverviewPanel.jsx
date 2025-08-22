@@ -5,7 +5,9 @@ function Code({ children }) {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(children);
-    } catch {}
+    } catch (e) {
+      void e;
+    }
   };
   return (
     <div style={{ position: "relative", margin: "0.5rem 0 1rem" }}>
