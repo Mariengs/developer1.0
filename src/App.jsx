@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import React, { useEffect, useState, Suspense, lazy } from "react";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import I18nProvider from "./i18n/I18nProvider.jsx";
 import Nav from "./components/Nav/Nav.jsx";
-import MyDictionary from "./pages/MyDictionary/Dictionary.jsx";
-import VSCode from "./pages/VSCode/VSCode.jsx";
-import HomePage from "./pages/Home/HomePage";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import Spinner from "./components/Spinner/Spinner.jsx";
+import PageLoader from "./components/Spinner/PageLoader.jsx";
+
+// Lazy-load sider
+const HomePage = lazy(() => import("./pages/Home/HomePage.jsx"));
+const MyDictionary = lazy(() => import("./pages/MyDictionary/Dictionary.jsx"));
+const VSCode = lazy(() => import("./pages/VSCode/VSCode.jsx"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound.jsx"));
 
 function getInitialTheme() {
   try {
@@ -43,12 +43,16 @@ export default function App() {
       <Router>
         <ScrollToTop />
         <Nav theme={theme} setTheme={setTheme} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/dictionary" element={<MyDictionary />} />
-          <Route path="/vscode" element={<VSCode />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <main id="main">
+          <Suspense fallback={<PageLoader label="Loading" />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/dictionary" element={<MyDictionary />} />
+              <Route path="/vscode" element={<VSCode />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
         <Footer />
       </Router>
     </I18nProvider>

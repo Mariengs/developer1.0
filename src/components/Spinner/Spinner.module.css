@@ -1,0 +1,48 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  display: block;
+  animation: spin 1s linear infinite;
+}
+
+.track {
+  stroke: var(--ring);
+  opacity: 0.6;
+}
+
+.indicator {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  /* “cut out” en dash for spinner-effekten */
+  stroke-dasharray: 80 140;
+  stroke-dashoffset: 0;
+}
+
+/* Skjermleser-tekst */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Respekter redusert animasjon */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
