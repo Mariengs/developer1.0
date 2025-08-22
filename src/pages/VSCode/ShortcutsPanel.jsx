@@ -1,7 +1,6 @@
 import { useContext, useMemo, useState } from "react";
 import { I18nContext } from "../../i18n/I18nContext.js";
-import { SHORTCUTS } from "../Shortcuts/shortcuts.data.js"; // eller flytt datafila til VSCode/
-
+import { SHORTCUTS } from "./shortcuts.data.js"; // eller flytt datafila til VSCode/
 const PLATFORM_ORDER = ["mac", "win", "linux"];
 
 function detectPlatform() {

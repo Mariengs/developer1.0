@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { I18nContext } from "../../i18n/I18nContext.js";
 import ShortcutsPanel from "./ShortcutsPanel.jsx";
+import OverviewPanel from "./OverviewPanel.jsx";
 
 export default function VSCode() {
   const { t } = useContext(I18nContext);
@@ -17,7 +18,6 @@ export default function VSCode() {
     const section = params.get("section");
     if (section === "shortcuts") {
       setTab("shortcuts");
-      // valgfritt: scroll til panelet
       setTimeout(() => {
         document
           .getElementById("shortcuts")
@@ -28,8 +28,7 @@ export default function VSCode() {
 
   const switchTab = (next) => {
     setTab(next);
-    params.set("section", next);
-    setParams(params, { replace: true });
+    setParams({ section: next }, { replace: true });
   };
 
   return (
@@ -62,7 +61,7 @@ export default function VSCode() {
       {tab === "overview" && (
         <div>
           <p style={{ color: "var(--muted)" }}>{t("vscode.overview.lead")}</p>
-          {/* evt. innhold om extensions, settings, tips osv. */}
+          <OverviewPanel />
         </div>
       )}
 
