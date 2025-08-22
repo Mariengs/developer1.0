@@ -9,6 +9,7 @@ import I18nProvider from "./i18n/I18nProvider.jsx";
 import Nav from "./components/Nav/Nav.jsx";
 import MyDictionary from "./pages/MyDictionary/Dictionary.jsx";
 import VSCode from "./pages/VSCode/VSCode.jsx";
+import HomePage from "./pages/Home/HomePage";
 
 function getInitialTheme() {
   try {
@@ -40,7 +41,8 @@ export default function App() {
       <Router>
         <Nav theme={theme} setTheme={setTheme} />
         <Routes>
-          <Route path="/" element={<MyDictionary />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/dictionary" element={<MyDictionary />} />
           <Route path="/vscode" element={<VSCode />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

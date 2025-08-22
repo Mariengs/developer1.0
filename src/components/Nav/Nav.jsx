@@ -1,9 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
-import ThemeToggle from "../dictionary/ThemeToggle.jsx";
+import ThemeToggle from "../dictionary/ThemeToggle.jsx"; // dobbeltsjekk sti/casing
 import LanguageToggle from "../LanguageToggle/LanguageToggle.jsx";
 import logo from "../../assets/logo.svg";
 
 export default function Nav({ theme, setTheme }) {
+  const baseItemStyle = {
+    padding: "6px 10px",
+    borderRadius: 8,
+    textDecoration: "none",
+    color: "var(--text)",
+  };
+
   return (
     <nav
       style={{
@@ -15,6 +22,7 @@ export default function Nav({ theme, setTheme }) {
         background: "var(--surface)",
       }}
     >
+      {/* Logo = Home */}
       <Link
         to="/"
         style={{
@@ -37,34 +45,41 @@ export default function Nav({ theme, setTheme }) {
         <span>Developer Help</span>
       </Link>
 
+      {/* Home */}
       <NavLink
         to="/"
         end
         style={({ isActive }) => ({
-          padding: "6px 10px",
-          borderRadius: 8,
-          textDecoration: "none",
-          color: "var(--text)",
+          ...baseItemStyle,
+          background: isActive ? "var(--surface-2)" : "transparent",
+        })}
+      >
+        Home
+      </NavLink>
+
+      {/* Dictionary – FIX: to="/dictionary" */}
+      <NavLink
+        to="/dictionary"
+        style={({ isActive }) => ({
+          ...baseItemStyle,
           background: isActive ? "var(--surface-2)" : "transparent",
         })}
       >
         Dictionary
       </NavLink>
 
+      {/* VSCode */}
       <NavLink
         to="/vscode"
         style={({ isActive }) => ({
-          padding: "6px 10px",
-          borderRadius: 8,
-          textDecoration: "none",
-          color: "var(--text)",
+          ...baseItemStyle,
           background: isActive ? "var(--surface-2)" : "transparent",
         })}
       >
         VSCode
       </NavLink>
 
-      {/* Knapperekke: Theme først, så språk */}
+      {/* Toggles */}
       <div
         style={{ display: "flex", alignItems: "center", gap: 8, marginLeft: 8 }}
       >
