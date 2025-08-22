@@ -10,6 +10,8 @@ import Nav from "./components/Nav/Nav.jsx";
 import MyDictionary from "./pages/MyDictionary/Dictionary.jsx";
 import VSCode from "./pages/VSCode/VSCode.jsx";
 import HomePage from "./pages/Home/HomePage";
+import ScrollToTop from "./components/ScrollToTop.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 function getInitialTheme() {
   try {
@@ -39,6 +41,7 @@ export default function App() {
   return (
     <I18nProvider>
       <Router>
+        <ScrollToTop />
         <Nav theme={theme} setTheme={setTheme} />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -46,6 +49,7 @@ export default function App() {
           <Route path="/vscode" element={<VSCode />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <Footer />
       </Router>
     </I18nProvider>
   );

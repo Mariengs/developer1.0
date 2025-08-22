@@ -1,0 +1,146 @@
+.wrapper {
+  min-height: calc(100dvh - 60px); /* trekk fra nav-høyde om ønskelig */
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  color: var(--text);
+  padding: 3rem 1rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  gap: 2rem;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(180deg, var(--surface), transparent 70%);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 2.25rem;
+  box-shadow: 0 0 0 1px var(--ring) inset;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+  max-width: 60ch;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.cta,
+.ghost {
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: none;
+  color: var(--text);
+  transition: transform 120ms ease, background 160ms ease,
+    border-color 160ms ease;
+}
+
+.cta {
+  background: var(--accent);
+  color: #fff;
+  border-color: color-mix(in oklab, var(--accent) 70%, #000 30%);
+}
+
+.cta:hover {
+  transform: translateY(-1px);
+}
+.cta:active {
+  transform: translateY(0);
+}
+
+.ghost {
+  border-color: var(--card-border);
+  background: var(--surface-2);
+}
+.ghost:hover {
+  background: var(--card-hover);
+}
+
+/* FEATURES */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+.card {
+  grid-column: span 12;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 1.25rem;
+  transition: transform 120ms ease, background 160ms ease,
+    border-color 160ms ease, box-shadow 160ms ease;
+  box-shadow: 0 0 0 1px var(--ring) inset;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  background: var(--card-hover);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.cardText {
+  color: var(--muted);
+  margin: 0.25rem 0 0;
+}
+
+/* Responsive kolonner */
+@media (min-width: 640px) {
+  .card {
+    grid-column: span 6;
+  }
+}
+@media (min-width: 1024px) {
+  .card {
+    grid-column: span 4;
+  }
+}
+
+/* Fokus-ring for a11y */
+.cta:focus-visible,
+.ghost:focus-visible,
+.card:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring),
+    0 0 0 4px color-mix(in oklab, var(--accent) 60%, transparent);
+}

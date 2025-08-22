@@ -1,9 +1,13 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import ThemeToggle from "../dictionary/ThemeToggle.jsx"; // dobbeltsjekk sti/casing
+import { I18nContext } from "../../i18n/I18nContext.js";
+import ThemeToggle from "../dictionary/ThemeToggle.jsx"; // sjekk casing/sti
 import LanguageToggle from "../LanguageToggle/LanguageToggle.jsx";
 import logo from "../../assets/logo.svg";
 
 export default function Nav({ theme, setTheme }) {
+  const { t } = useContext(I18nContext);
+
   const baseItemStyle = {
     padding: "6px 10px",
     borderRadius: 8,
@@ -21,6 +25,7 @@ export default function Nav({ theme, setTheme }) {
         borderBottom: "1px solid var(--card-border)",
         background: "var(--surface)",
       }}
+      aria-label="Main"
     >
       {/* Logo = Home */}
       <Link
@@ -54,10 +59,10 @@ export default function Nav({ theme, setTheme }) {
           background: isActive ? "var(--surface-2)" : "transparent",
         })}
       >
-        Home
+        {t("nav.home")}
       </NavLink>
 
-      {/* Dictionary – FIX: to="/dictionary" */}
+      {/* Dictionary */}
       <NavLink
         to="/dictionary"
         style={({ isActive }) => ({
@@ -65,7 +70,7 @@ export default function Nav({ theme, setTheme }) {
           background: isActive ? "var(--surface-2)" : "transparent",
         })}
       >
-        Dictionary
+        {t("nav.dictionary")}
       </NavLink>
 
       {/* VSCode */}
@@ -76,7 +81,7 @@ export default function Nav({ theme, setTheme }) {
           background: isActive ? "var(--surface-2)" : "transparent",
         })}
       >
-        VSCode
+        {t("nav.vscode")}
       </NavLink>
 
       {/* Toggles */}
