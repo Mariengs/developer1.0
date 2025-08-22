@@ -18,6 +18,12 @@ export default function Footer() {
         <NavLink to="/vscode" className={styles.link}>
           {t("nav.vscode")}
         </NavLink>
+        <NavLink to="/about" className={styles.link}>
+          About
+        </NavLink>
+        <NavLink to="/feedback" className={styles.link}>
+          Feedback
+        </NavLink>
       </nav>
       <p className={styles.copy}>© {new Date().getFullYear()} Developer Help</p>
     </footer>

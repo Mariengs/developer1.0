@@ -4,7 +4,6 @@ import I18nProvider from "./i18n/I18nProvider.jsx";
 import Nav from "./components/Nav/Nav.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Footer from "./components/Footer/Footer.jsx";
-import Spinner from "./components/Spinner/Spinner.jsx";
 import PageLoader from "./components/Spinner/PageLoader.jsx";
 
 // Lazy-load sider
@@ -12,6 +11,8 @@ const HomePage = lazy(() => import("./pages/Home/HomePage.jsx"));
 const MyDictionary = lazy(() => import("./pages/MyDictionary/Dictionary.jsx"));
 const VSCode = lazy(() => import("./pages/VSCode/VSCode.jsx"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound.jsx"));
+const About = lazy(() => import("./pages/About/About.jsx"));
+const Feedback = lazy(() => import("./pages/Feedback/Feedback.jsx"));
 
 function getInitialTheme() {
   try {
@@ -49,6 +50,8 @@ export default function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/dictionary" element={<MyDictionary />} />
               <Route path="/vscode" element={<VSCode />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/feedback" element={<Feedback />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
