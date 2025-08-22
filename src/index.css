@@ -78,3 +78,42 @@ button {
     transition: none !important;
   }
 }
+/* App-shell som skyver footer til bunnen */
+.app-shell {
+  min-height: 100dvh; /* full viewport-høyde */
+  display: flex;
+  flex-direction: column;
+}
+
+#main {
+  flex: 1 1 auto; /* ta opp ledig plass mellom Nav og Footer */
+  display: block;
+}
+/* Sørg for at Shiki-blokker aldri sprenger bredden */
+pre.shiki {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 0 0 1px var(--ring) inset;
+  box-sizing: border-box;
+  margin: 0; /* fjern evt. default-margin */
+}
+
+/* Gjør at hver linje kan være bredere enn containeren → scroll, ikke wrap */
+pre.shiki code {
+  display: block;
+  min-width: max-content; /* viktig: gjør at innholdet definerer scroll-bredden */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+/* Inline <code> i lister/tekst kan gjerne bryte linje */
+ul li code,
+p code,
+.ul code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

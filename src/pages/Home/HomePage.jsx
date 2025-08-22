@@ -42,7 +42,7 @@ export default function HomePage() {
             <p className={styles.cardText}>{t("home.card.vscode.text")}</p>
           </Link>
 
-          <a
+          {/* <a
             className={styles.card}
             href="https://github.com/Mariengs/developer1.0"
             target="_blank"
@@ -50,7 +50,7 @@ export default function HomePage() {
           >
             <h3 className={styles.cardTitle}>{t("home.card.repo.title")}</h3>
             <p className={styles.cardText}>{t("home.card.repo.text")}</p>
-          </a>
+          </a> */}
         </div>
       </section>
     </div>

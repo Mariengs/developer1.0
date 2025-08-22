@@ -42,20 +42,22 @@ export default function App() {
   return (
     <I18nProvider>
       <Router>
-        <ScrollToTop />
-        <Nav theme={theme} setTheme={setTheme} />
-        <main id="main">
-          <Suspense fallback={<PageLoader label="Loading" />}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/dictionary" element={<MyDictionary />} />
-              <Route path="/vscode" element={<VSCode />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/feedback" element={<Feedback />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </main>
+        <div className="app-shell">
+          <ScrollToTop />
+          <Nav theme={theme} setTheme={setTheme} />
+          <main id="main">
+            <Suspense fallback={<PageLoader label="Loading" />}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/dictionary" element={<MyDictionary />} />
+                <Route path="/vscode" element={<VSCode />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/feedback" element={<Feedback />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </main>
+        </div>
         <Footer />
       </Router>
     </I18nProvider>

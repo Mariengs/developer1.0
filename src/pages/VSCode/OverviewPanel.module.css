@@ -1,0 +1,41 @@
+/* 1 kolonne som standard */
+.cards {
+  display: block; /* ikke grid som default */
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1.25rem; /* spacing når vi ikke bruker grid */
+  min-width: 0; /* viktig når/om grid aktiveres */
+  overflow: hidden; /* hindrer visuell “blødning” */
+}
+
+.h2 {
+  margin: 0 0 0.25rem;
+}
+.muted {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.ul {
+  color: var(--text);
+  margin-top: 0;
+  padding-left: 1.2rem;
+}
+
+/* La lange kodeord (extension-IDer) brytes pent i tekst */
+.ul code {
+  white-space: normal; /* tillat linjebryting i inline <code> */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Hvis du vil: sørg for at Shiki/CodeBlock aldri sprenger bredden */
+:global(pre.shiki),
+:global(pre.shiki code) {
+  max-width: 100%;
+}

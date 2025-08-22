@@ -27,8 +27,15 @@ export default function I18nProvider({ children }) {
   }, [lang]);
 
   const t = useMemo(() => {
-    const dict = translations[lang] || translations.en;
-    return (key) => dict[key] ?? key;
+    const base = translations.en || {};
+    const dict = { ...base, ...(translations[lang] || {}) };
+    return (key) => {
+      if (!(key in dict) && import.meta.env.DEV) {
+        // nyttig varsel i konsollen når du glemmer en nøkkel
+        console.warn("Missing i18n key:", key);
+      }
+      return dict[key] ?? key;
+    };
   }, [lang]);
 
   const value = useMemo(() => ({ lang, setLang, t }), [lang, t]);

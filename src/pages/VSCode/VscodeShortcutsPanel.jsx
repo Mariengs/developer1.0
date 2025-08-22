@@ -1,6 +1,8 @@
 import { useContext, useMemo, useState } from "react";
 import { I18nContext } from "../../i18n/I18nContext.js";
 import { SHORTCUTS } from "./shortcuts.data.js";
+import styles from "./VSCodeShortcutsPanel.module.css";
+
 const PLATFORM_ORDER = ["mac", "win", "linux"];
 
 function detectPlatform() {
@@ -16,10 +18,7 @@ export default function ShortcutsPanel() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
 
-  const categories = useMemo(
-    () => ["all", "navigation", "search", "edit", "cursor", "view"],
-    []
-  );
+  const categories = ["all", "navigation", "search", "edit", "cursor", "view"];
 
   const filtered = useMemo(() => {
     return SHORTCUTS.filter((s) => {
@@ -34,44 +33,23 @@ export default function ShortcutsPanel() {
   return (
     <section>
       {/* Controls */}
-      <div style={{ display: "grid", gap: "0.75rem", marginBottom: "1rem" }}>
+      <div className={styles.controls}>
         <input
           type="search"
           placeholder={t("shortcuts.searchPlaceholder")}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           aria-label={t("shortcuts.searchAria")}
-          style={{
-            padding: "0.6rem 0.8rem",
-            borderRadius: 10,
-            border: "1px solid var(--card-border)",
-            background: "var(--surface)",
-            color: "var(--text)",
-            outline: "none",
-          }}
+          className={styles.input}
         />
 
-        <div
-          style={{
-            display: "flex",
-            gap: ".75rem",
-            flexWrap: "wrap",
-            alignItems: "center",
-          }}
-        >
+        <div className={styles.row}>
           <label>
             {t("shortcuts.category")}{" "}
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              style={{
-                marginLeft: ".5rem",
-                background: "var(--surface)",
-                border: "1px solid var(--card-border)",
-                color: "var(--text)",
-                padding: ".4rem .6rem",
-                borderRadius: 8,
-              }}
+              className={styles.select}
             >
               {categories.map((c) => (
                 <option key={c} value={c}>
@@ -81,18 +59,8 @@ export default function ShortcutsPanel() {
             </select>
           </label>
 
-          <fieldset
-            style={{
-              border: "1px solid var(--card-border)",
-              borderRadius: 12,
-              padding: ".4rem .6rem",
-              display: "flex",
-              gap: ".5rem",
-            }}
-          >
-            <legend style={{ padding: "0 .25rem" }}>
-              {t("shortcuts.platform")}
-            </legend>
+          <fieldset className={styles.fieldset}>
+            <legend className={styles.legend}>{t("shortcuts.platform")}</legend>
             {PLATFORM_ORDER.map((p) => (
               <label
                 key={p}
@@ -117,20 +85,13 @@ export default function ShortcutsPanel() {
       </div>
 
       {/* Table */}
-      <div
-        style={{
-          overflow: "auto",
-          border: "1px solid var(--card-border)",
-          borderRadius: 12,
-          background: "var(--card-bg)",
-        }}
-      >
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead style={{ background: "var(--surface-2)" }}>
+      <div className={styles.tableWrap}>
+        <table className={styles.table}>
+          <thead className={styles.thead}>
             <tr>
-              <th style={thStyle}>{t("shortcuts.table.action")}</th>
-              <th style={thStyle}>{t("shortcuts.table.keys")}</th>
-              <th style={thStyle}>{t("shortcuts.table.category")}</th>
+              <th className={styles.th}>{t("shortcuts.table.action")}</th>
+              <th className={styles.th}>{t("shortcuts.table.keys")}</th>
+              <th className={styles.th}>{t("shortcuts.table.category")}</th>
             </tr>
           </thead>
           <tbody>
@@ -143,17 +104,17 @@ export default function ShortcutsPanel() {
                   key={s.id}
                   style={{ borderTop: "1px solid var(--card-border)" }}
                 >
-                  <td style={tdStyle}>{name}</td>
-                  <td style={tdStyleMono}>
-                    <kbd style={kbdStyle}>{keys}</kbd>
+                  <td className={styles.td}>{name}</td>
+                  <td className={styles.td}>
+                    <kbd className={styles.kbd}>{keys}</kbd>
                   </td>
-                  <td style={tdStyle}>{catLabel}</td>
+                  <td className={styles.td}>{catLabel}</td>
                 </tr>
               );
             })}
             {filtered.length === 0 && (
               <tr>
-                <td style={tdStyle} colSpan={3}>
+                <td className={styles.td} colSpan={3}>
                   {t("shortcuts.empty")}
                 </td>
               </tr>
@@ -164,19 +125,3 @@ export default function ShortcutsPanel() {
     </section>
   );
 }
-
-const thStyle = {
-  textAlign: "left",
-  padding: ".75rem",
-  borderBottom: "1px solid var(--card-border)",
-};
-const tdStyle = { padding: ".6rem .75rem", verticalAlign: "top" };
-const tdStyleMono = { ...tdStyle, whiteSpace: "nowrap" };
-const kbdStyle = {
-  background: "var(--surface-2)",
-  border: "1px solid var(--card-border)",
-  borderRadius: 8,
-  padding: ".15rem .4rem",
-  fontFamily:
-    'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-};

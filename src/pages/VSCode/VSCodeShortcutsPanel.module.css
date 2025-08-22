@@ -1,0 +1,101 @@
+.controls {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .controls {
+    grid-template-columns: 1fr;
+  } /* input full bredde */
+}
+
+.row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.input {
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  width: 100%;
+}
+
+.select {
+  margin-left: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+}
+
+.fieldset {
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 0.4rem 0.6rem;
+  display: flex;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.legend {
+  padding: 0 0.25rem;
+}
+
+.tableWrap {
+  overflow: auto;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  background: var(--card-bg);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px; /* gi litt horisontal scroll på veldig smale skjermer */
+}
+
+.thead {
+  background: var(--surface-2);
+  position: sticky;
+  top: 0;
+}
+
+.th {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.td {
+  padding: 0.6rem 0.75rem;
+  vertical-align: top;
+}
+
+.kbd {
+  background: var(--surface-2);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 0.15rem 0.4rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  white-space: nowrap;
+}
+
+/* Skjul kategori-kolonnen på ekstra små skjermer */
+@media (max-width: 480px) {
+  .table tr > *:nth-child(3) {
+    display: none;
+  }
+  .table thead tr > *:nth-child(3) {
+    display: none;
+  }
+}

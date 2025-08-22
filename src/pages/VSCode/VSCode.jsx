@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { I18nContext } from "../../i18n/I18nContext.js";
 import VscodeShortcutsPanel from "./VscodeShortcutsPanel.jsx";
 import OverviewPanel from "./OverviewPanel.jsx";
+import styles from "./VSCode.module.css";
 
 export default function VSCode() {
   const { t } = useContext(I18nContext);
@@ -13,7 +14,6 @@ export default function VSCode() {
     document.title = t("vscode.title");
   }, [t]);
 
-  // Deep-link: /#/vscode?section=shortcuts
   useEffect(() => {
     const section = params.get("section");
     if (section === "shortcuts") {
@@ -32,19 +32,15 @@ export default function VSCode() {
   };
 
   return (
-    <section style={{ padding: "2rem 1rem", maxWidth: 1100, margin: "0 auto" }}>
+    <section className={styles.container}>
       <h1 style={{ marginTop: 0 }}>{t("vscode.title")}</h1>
 
-      <div
-        role="tablist"
-        aria-label="VSCode sections"
-        style={{ display: "flex", gap: 8, marginBottom: 16 }}
-      >
+      <div role="tablist" aria-label="VSCode sections" className={styles.tabs}>
         <button
           role="tab"
           aria-selected={tab === "overview"}
           onClick={() => switchTab("overview")}
-          style={tabButtonStyle(tab === "overview")}
+          className={styles.tabBtn}
         >
           {t("vscode.tab.overview")}
         </button>
@@ -52,7 +48,7 @@ export default function VSCode() {
           role="tab"
           aria-selected={tab === "shortcuts"}
           onClick={() => switchTab("shortcuts")}
-          style={tabButtonStyle(tab === "shortcuts")}
+          className={styles.tabBtn}
         >
           {t("vscode.tab.shortcuts")}
         </button>
@@ -73,12 +69,3 @@ export default function VSCode() {
     </section>
   );
 }
-
-const tabButtonStyle = (active) => ({
-  padding: "0.5rem 0.9rem",
-  borderRadius: 10,
-  border: "1px solid var(--card-border)",
-  background: active ? "var(--surface-2)" : "var(--surface)",
-  color: "var(--text)",
-  cursor: "pointer",
-});

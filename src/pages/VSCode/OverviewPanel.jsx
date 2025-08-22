@@ -1,48 +1,7 @@
 import { useContext, useEffect } from "react";
 import { I18nContext } from "../../i18n/I18nContext.js";
-
-function Code({ children }) {
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(children);
-    } catch (e) {
-      void e;
-    }
-  };
-  return (
-    <div style={{ position: "relative", margin: "0.5rem 0 1rem" }}>
-      <button
-        onClick={copy}
-        style={{
-          position: "absolute",
-          right: 8,
-          top: 8,
-          fontSize: 12,
-          padding: "4px 8px",
-          borderRadius: 8,
-          border: "1px solid var(--card-border)",
-          background: "var(--surface-2)",
-          color: "var(--text)",
-          cursor: "pointer",
-        }}
-      >
-        Copy
-      </button>
-      <pre
-        style={{
-          margin: 0,
-          padding: "0.75rem 1rem",
-          overflow: "auto",
-          background: "var(--card-bg)",
-          border: "1px solid var(--card-border)",
-          borderRadius: 12,
-        }}
-      >
-        <code>{children}</code>
-      </pre>
-    </div>
-  );
-}
+import CodeBlock from "../../components/Code/CodeBlock.jsx";
+import styles from "./OverviewPanel.module.css";
 
 export default function OverviewPanel() {
   const { t } = useContext(I18nContext);
@@ -52,11 +11,13 @@ export default function OverviewPanel() {
   }, [t]);
 
   return (
-    <section style={{ display: "grid", gap: "1.25rem" }}>
+    <section className={styles.cards}>
       {/* Anbefalte utvidelser */}
-      <article style={card}>
-        <h2 style={h2}>{t("vscode.overview.sections.extensions")}</h2>
-        <ul style={ulMuted}>
+      <article className={styles.card}>
+        <h2 className={styles.h2}>
+          {t("vscode.overview.sections.extensions")}
+        </h2>
+        <ul className={styles.ul}>
           <li>
             ESLint (<code>dbaeumer.vscode-eslint</code>)
           </li>
@@ -81,7 +42,7 @@ export default function OverviewPanel() {
         <p style={{ marginTop: 8 }}>
           {t("vscode.overview.tip.recommendations")}
         </p>
-        <Code>{`// .vscode/extensions.json
+        <CodeBlock lang="jsonc">{`// .vscode/extensions.json
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
@@ -91,14 +52,14 @@ export default function OverviewPanel() {
     "christian-kohler.path-intellisense",
     "wix.vscode-import-cost"
   ]
-}`}</Code>
+}`}</CodeBlock>
       </article>
 
       {/* Editor & filer (settings.json) */}
-      <article style={card}>
-        <h2 style={h2}>{t("vscode.overview.sections.settings")}</h2>
-        <p style={muted}>{t("vscode.overview.text.settings")}</p>
-        <Code>{`// .vscode/settings.json
+      <article className={styles.card}>
+        <h2 className={styles.h2}>{t("vscode.overview.sections.settings")}</h2>
+        <p className={styles.muted}>{t("vscode.overview.text.settings")}</p>
+        <CodeBlock lang="jsonc">{`// .vscode/settings.json
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -111,42 +72,44 @@ export default function OverviewPanel() {
   "emmet.includeLanguages": { "javascript": "javascriptreact" },
   "search.exclude": { "**/node_modules": true, "**/dist": true },
   "files.exclude": { "**/node_modules": true, "**/dist": true }
-}`}</Code>
+}`}</CodeBlock>
       </article>
 
       {/* Prettier + ESLint */}
-      <article style={card}>
-        <h2 style={h2}>{t("vscode.overview.sections.lintformat")}</h2>
-        <p style={muted}>{t("vscode.overview.text.lintformat")}</p>
-        <Code>{`// .prettierrc
+      <article className={styles.card}>
+        <h2 className={styles.h2}>
+          {t("vscode.overview.sections.lintformat")}
+        </h2>
+        <p className={styles.muted}>{t("vscode.overview.text.lintformat")}</p>
+        <CodeBlock lang="json">{`// .prettierrc
 {
   "singleQuote": true,
   "semi": true,
   "trailingComma": "es5",
   "printWidth": 100
-}`}</Code>
-        <Code>{`// .eslintrc.json
+}`}</CodeBlock>
+        <CodeBlock lang="json">{`// .eslintrc.json
 {
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
   "parserOptions": { "ecmaVersion": 2022, "sourceType": "module", "ecmaFeatures": { "jsx": true } },
   "settings": { "react": { "version": "detect" } },
   "env": { "browser": true, "es2022": true },
   "rules": { "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }] }
-}`}</Code>
-        <Code>{`// package.json (utdrag)
+}`}</CodeBlock>
+        <CodeBlock lang="json">{`// package.json (utdrag)
 {
   "scripts": {
     "lint": "eslint src --ext .js,.jsx",
     "format": "prettier -w ."
   }
-}`}</Code>
+}`}</CodeBlock>
       </article>
 
       {/* Snippets */}
-      <article style={card}>
-        <h2 style={h2}>{t("vscode.overview.sections.snippets")}</h2>
-        <p style={muted}>{t("vscode.overview.text.snippets")}</p>
-        <Code>{`// .vscode/react-component.code-snippets
+      <article className={styles.card}>
+        <h2 className={styles.h2}>{t("vscode.overview.sections.snippets")}</h2>
+        <p className={styles.muted}>{t("vscode.overview.text.snippets")}</p>
+        <CodeBlock lang="jsonc">{`// .vscode/react-component.code-snippets
 {
   "React FC": {
     "prefix": "rfc",
@@ -164,14 +127,14 @@ export default function OverviewPanel() {
     "body": ["console.log('▶', \${1:val});"],
     "description": "console.log"
   }
-}`}</Code>
+}`}</CodeBlock>
       </article>
 
       {/* Debug */}
-      <article style={card}>
-        <h2 style={h2}>{t("vscode.overview.sections.debug")}</h2>
-        <p style={muted}>{t("vscode.overview.text.debug")}</p>
-        <Code>{`// .vscode/launch.json
+      <article className={styles.card}>
+        <h2 className={styles.h2}>{t("vscode.overview.sections.debug")}</h2>
+        <p className={styles.muted}>{t("vscode.overview.text.debug")}</p>
+        <CodeBlock lang="jsonc">{`// .vscode/launch.json
 {
   "version": "0.2.0",
   "configurations": [
@@ -183,20 +146,21 @@ export default function OverviewPanel() {
       "webRoot": "\${workspaceFolder}/src"
     }
   ]
-}`}</Code>
+}`}</CodeBlock>
       </article>
 
       {/* Git + EditorConfig */}
-      <article style={card}>
-        <h2 style={h2}>{t("vscode.overview.sections.git")}</h2>
-        <p style={muted}>{t("vscode.overview.text.git")}</p>
-        <Code>{`# .gitignore (utdrag)
+      <article className={styles.card}>
+        <h2 className={styles.h2}>{t("vscode.overview.sections.git")}</h2>
+        <p className={styles.muted}>{t("vscode.overview.text.git")}</p>
+        <CodeBlock lang="bash">{`# .gitignore (utdrag)
 node_modules
 dist
 .vscode/*.log
 .DS_Store
-.env`}</Code>
-        <Code>{`; .editorconfig
+.env`}</CodeBlock>
+        {/* Bruk 'properties' for å unngå ini-bundle-varsel */}
+        <CodeBlock lang="properties">{`; .editorconfig
 root = true
 
 [*]
@@ -205,18 +169,8 @@ charset = utf-8
 indent_style = space
 indent_size = 2
 insert_final_newline = true
-trim_trailing_whitespace = true`}</Code>
+trim_trailing_whitespace = true`}</CodeBlock>
       </article>
     </section>
   );
 }
-
-const card = {
-  background: "var(--card-bg)",
-  border: "1px solid var(--card-border)",
-  borderRadius: 14,
-  padding: "1rem",
-};
-const h2 = { margin: "0 0 .25rem" };
-const muted = { color: "var(--muted)", marginTop: 0 };
-const ulMuted = { color: "var(--text)", marginTop: 0, paddingLeft: "1.2rem" };

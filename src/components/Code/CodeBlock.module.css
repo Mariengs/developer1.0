@@ -1,0 +1,50 @@
+.wrap {
+  position: relative;
+  margin: 0.5rem 0 1rem;
+}
+
+/* Shiki legger på class="shiki" – nås via :global i CSS-moduler */
+.shiki :global(pre.shiki) {
+  margin: 0;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 0 0 1px var(--ring) inset;
+  overflow: auto;
+}
+
+/* Tving VSCode-lignende font og demp linjehøyde litt */
+.shiki :global(pre.shiki code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Hvis du vil bruke din bakgrunn i stedet for Shikis inline bakgrunn: */
+/*
+.shiki :global(pre.shiki) {
+  background: var(--card-bg) !important;
+}
+*/
+
+.copy {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.fallback {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: auto;
+}

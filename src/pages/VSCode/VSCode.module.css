@@ -1,5 +1,36 @@
-.wrap {
-  max-width: 880px;
+.container {
+  width: 100%;
+  max-width: 960px; /* var 1100 – smalere gir bedre lesbarhet */
   margin: 0 auto;
-  padding: 24px;
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.25rem 0.9rem;
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.tabBtn {
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap; /* ikke bryt knappetekst på små skjermer */
+}
+
+.tabBtn[aria-selected="true"] {
+  background: var(--surface-2);
 }
