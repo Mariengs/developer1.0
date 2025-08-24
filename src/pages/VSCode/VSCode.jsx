@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { I18nContext } from "../../i18n/I18nContext.js";
 import VscodeShortcutsPanel from "./VscodeShortcutsPanel.jsx";
 import OverviewPanel from "./OverviewPanel.jsx";
+import ProjectStructurePanel from "./ProjectStructurePanel.jsx";
 import styles from "./VSCode.module.css";
 
 export default function VSCode() {
@@ -16,12 +17,16 @@ export default function VSCode() {
 
   useEffect(() => {
     const section = params.get("section");
-    if (section === "shortcuts") {
-      setTab("shortcuts");
+    const valid =
+      section === "overview" ||
+      section === "shortcuts" ||
+      section === "structure";
+    const next = valid ? section : "overview";
+    setTab(next);
+
+    if (next && next !== "overview") {
       setTimeout(() => {
-        document
-          .getElementById("shortcuts")
-          ?.scrollIntoView({ behavior: "smooth" });
+        document.getElementById(next)?.scrollIntoView({ behavior: "smooth" });
       }, 0);
     }
   }, [params]);
@@ -37,33 +42,65 @@ export default function VSCode() {
 
       <div role="tablist" aria-label="VSCode sections" className={styles.tabs}>
         <button
+          id="tab-overview"
           role="tab"
           aria-selected={tab === "overview"}
+          aria-controls="panel-overview"
           onClick={() => switchTab("overview")}
           className={styles.tabBtn}
         >
           {t("vscode.tab.overview")}
         </button>
         <button
+          id="tab-shortcuts"
           role="tab"
           aria-selected={tab === "shortcuts"}
+          aria-controls="panel-shortcuts"
           onClick={() => switchTab("shortcuts")}
           className={styles.tabBtn}
         >
           {t("vscode.tab.shortcuts")}
         </button>
+        <button
+          id="tab-structure"
+          role="tab"
+          aria-selected={tab === "structure"}
+          aria-controls="panel-structure"
+          onClick={() => switchTab("structure")}
+          className={styles.tabBtn}
+        >
+          {t("vscode.tab.structure")}
+        </button>
       </div>
 
       {tab === "overview" && (
-        <div>
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
           <p style={{ color: "var(--muted)" }}>{t("vscode.overview.lead")}</p>
           <OverviewPanel />
         </div>
       )}
 
       {tab === "shortcuts" && (
-        <div id="shortcuts">
-          <VscodeShortcutsPanel />
+        <div
+          id="panel-shortcuts"
+          role="tabpanel"
+          aria-labelledby="tab-shortcuts"
+        >
+          <div id="shortcuts">
+            <VscodeShortcutsPanel />
+          </div>
+        </div>
+      )}
+
+      {tab === "structure" && (
+        <div
+          id="panel-structure"
+          role="tabpanel"
+          aria-labelledby="tab-structure"
+        >
+          <div id="structure">
+            <ProjectStructurePanel />
+          </div>
         </div>
       )}
     </section>

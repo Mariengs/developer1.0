@@ -1,27 +1,71 @@
 .nav {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap; /* 🔹 viktig: tillat to linjer på små skjermer */
+  gap: 8px; /* litt tightere gap */
   align-items: center;
-  padding: 12px 16px;
+  padding: 10px 12px; /* litt mindre padding på mobil */
   border-bottom: 1px solid var(--card-border);
   background: var(--surface);
 }
+
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 700;
   color: var(--text);
   text-decoration: none;
-  margin-right: auto;
+  margin-right: auto; /* skyv resten til høyre */
+  min-width: 0; /* tillat krymp */
 }
-.links a {
-  color: var(--text);
-  text-decoration: none;
+
+.brand img {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+/* Høyresiden: lenker + toggles */
+.links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap; /* 🔹 kan bryte ned på ny linje */
+  align-items: center;
+}
+
+/* Enkelt nav-element */
+.item {
   padding: 6px 10px;
   border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  white-space: nowrap; /* ikke bryt knappetekst */
 }
-.links a:hover {
+
+.item:hover {
   background: var(--surface-2);
 }
-.active {
+
+/* Aktiv rute */
+.itemActive {
   background: var(--surface-2);
   outline: 2px solid var(--ring);
+}
+
+/* Gruppe for Theme/Language */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ekstra små skjermer */
+@media (max-width: 480px) {
+  .nav {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  .item {
+    padding: 6px 8px;
+  }
 }

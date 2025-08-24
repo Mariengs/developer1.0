@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useI18n } from "../../i18n/useI18n.js";
 import { DATA } from "../../data/dictionary.js";
 import Badge from "../../components/dictionary/Badge.jsx";
@@ -72,6 +72,29 @@ export default function MyDictionary() {
     return arr;
   }, [filtered, sortKey, sortDir]);
 
+  // “/” for å fokusere søkefeltet – men ikke når man allerede skriver et sted
+  useEffect(() => {
+    const onKey = (e) => {
+      const active = document.activeElement;
+      const tag = active?.tagName;
+      const typing =
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        active?.isContentEditable === true;
+      if (!typing && e.key === "/") {
+        e.preventDefault();
+        document.getElementById("dict-search")?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const slashHint =
+    lang === "no"
+      ? "Trykk «/» for å fokusere søkefeltet"
+      : "Press “/” to focus the search field";
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -89,12 +112,35 @@ export default function MyDictionary() {
           <p>{t("app.subtitle")}</p>
         </header>
 
+        {/* Label for skjermlesere */}
+        <label htmlFor="dict-search" className="sr-only">
+          {t("search.placeholder")}
+        </label>
+
         <div style={{ marginBottom: 16 }}>
           <Input
+            id="dict-search"
             value={q}
             onChange={setQ}
             placeholder={t("search.placeholder")}
+            aria-describedby="dict-hint dict-results-live"
           />
+          {/* Hint for tastaturbrukere */}
+          <div
+            id="dict-hint"
+            style={{ color: "var(--muted)", fontSize: 12, marginTop: 4 }}
+          >
+            {slashHint}
+          </div>
+          {/* Live-opplesing av antall treff (skjult visuelt) */}
+          <div
+            id="dict-results-live"
+            className="sr-only"
+            aria-live="polite"
+            role="status"
+          >
+            {t("results.label")}: {results.length}
+          </div>
         </div>
 
         <div className={styles.filters}>

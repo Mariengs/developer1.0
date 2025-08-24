@@ -595,4 +595,228 @@ export const DATA = [
       "A lightweight state management library for React that is easier than Redux.",
     link: "https://docs.pmnd.rs/zustand/getting-started/introduction",
   },
+  {
+    term: "Components folder",
+    aliases: ["components/", "Komponentmappe"],
+    category: "React",
+    description:
+      "Mappe for gjenbrukbare UI-komponenter. Skal være små, fokuserte og uten sideeffekter.",
+    description_en:
+      "Folder for reusable UI components. Should be small, focused, and free of side effects.",
+  },
+  {
+    term: "Pages folder",
+    aliases: ["pages/", "Sidemappe"],
+    category: "React",
+    description:
+      "Mappe for ruter/sider. Kobler URL til komponenter og holder side-spesifikk komposisjon.",
+    description_en:
+      "Folder for routes/pages. Maps URLs to components and holds page-specific composition.",
+  },
+  {
+    term: "Hooks folder",
+    aliases: ["hooks/", "Hook-mappe"],
+    category: "React",
+    description:
+      "Mappe for custom hooks med delbar logikk (uten DOM). Gjør UI tynt og testbart.",
+    description_en:
+      "Folder for custom hooks with shareable logic (no DOM). Keeps UI thin and testable.",
+    link: "https://react.dev/learn/reusing-logic-with-custom-hooks",
+  },
+  {
+    term: "Lib folder",
+    aliases: ["lib/", "Library"],
+    category: "Arkitektur",
+    description:
+      "Mappe for rene hjelpefunksjoner, API-klienter, config og andre delte moduler.",
+    description_en:
+      "Folder for pure helpers, API clients, configuration and other shared modules.",
+  },
+  {
+    term: "Styles folder",
+    aliases: ["styles/"],
+    category: "CSS",
+    description:
+      "Mappe for globale stilark, variabler eller modulære styles (CSS Modules/Tailwind).",
+    description_en:
+      "Folder for global stylesheets, variables, or modular styles (CSS Modules/Tailwind).",
+  },
+  {
+    term: "Next.js App Router",
+    aliases: ["app/ directory", "App Router"],
+    category: "React Framework",
+    description:
+      "Mappestruktur-basert ruting i Next.js der hver mappe representerer en rute og standard er serverkomponenter.",
+    description_en:
+      "Folder-based routing in Next.js where each folder is a route and server components are the default.",
+    link: "https://nextjs.org/docs/app",
+  },
+  {
+    term: "Route Groups",
+    aliases: ["(group) folders"],
+    category: "React Framework",
+    description:
+      "Parentes-mapper i Next.js som grupperer ruter uten å påvirke URL-strukturen.",
+    description_en:
+      "Parenthesis folders in Next.js to group routes without affecting the URL structure.",
+    link: "https://nextjs.org/docs/app/building-your-application/routing/route-groups",
+  },
+  {
+    term: "React Server Components",
+    aliases: ["Server Components", "RSC"],
+    category: "React",
+    description:
+      "Komponenter som renderer på server og sendes som serienert resultat til klient uten klient-side JS for selve komponenten.",
+    description_en:
+      "Components that render on the server and send serialized output to the client with no client-side JS for the component itself.",
+    link: "https://react.dev/learn/server-and-client-components",
+  },
+  {
+    term: "Client Components",
+    aliases: ["React Client Components"],
+    category: "React",
+    description:
+      'Komponenter som kjører i nettleseren. Merk med "use client" i Next.js App Router.',
+    description_en:
+      'Components that run in the browser. Mark with "use client" in Next.js App Router.',
+    link: "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#using-client-components",
+  },
+  {
+    term: "Routes (Express)",
+    aliases: ["Routing"],
+    category: "Backend",
+    description:
+      "Definerer HTTP-endepunkter (metode + sti) og hvilke kontrollere som håndterer dem.",
+    description_en:
+      "Defines HTTP endpoints (method + path) and which controllers handle them.",
+    link: "https://expressjs.com/en/guide/routing.html",
+  },
+  {
+    term: "Controller",
+    aliases: ["Controllers"],
+    category: "Backend",
+    description:
+      "Laget som mottar HTTP-forespørsler, validerer input og kaller services for domenelogikk.",
+    description_en:
+      "Layer that receives HTTP requests, validates input, and calls services for domain logic.",
+  },
+  {
+    term: "Service",
+    aliases: ["Services"],
+    category: "Backend",
+    description:
+      "Inneholder domenelogikk. Ren og testbar, uten HTTP-/rammeverkskoblinger.",
+    description_en:
+      "Contains domain logic. Pure and testable, with no HTTP/framework coupling.",
+  },
+  {
+    term: "Model (MVC)",
+    aliases: ["Models", "ORM model"],
+    category: "Backend",
+    description:
+      "Representasjon av data/entiteter og tilgang til databasen (ofte via ORM).",
+    description_en:
+      "Representation of data/entities and database access (often via an ORM).",
+  },
+  {
+    term: "Middleware",
+    aliases: ["Express middleware"],
+    category: "Backend",
+    description:
+      "Funksjoner som kjører før/etter kontrollere for ting som auth, logging og rate limiting.",
+    description_en:
+      "Functions that run before/after controllers for auth, logging, rate limiting, etc.",
+    link: "https://expressjs.com/en/guide/using-middleware.html",
+  },
+  {
+    term: "Monorepo",
+    aliases: [],
+    category: "Arkitektur",
+    description:
+      "En repo som inneholder flere pakker/prosjekter (f.eks. web, API, delt UI) med felles oppsett.",
+    description_en:
+      "A repository that contains multiple packages/projects (e.g., web, API, shared UI) with shared setup.",
+    link: "https://pnpm.io/workspaces",
+  },
+  {
+    term: "Workspaces",
+    aliases: ["npm workspaces", "pnpm workspaces", "yarn workspaces"],
+    category: "Verktøy",
+    description:
+      "Pakkehåndterer-funksjon for å linke lokale pakker, dele node_modules og versjonere samlet.",
+    description_en:
+      "Package manager feature to link local packages, share node_modules, and version collectively.",
+    link: "https://pnpm.io/workspaces",
+  },
+  {
+    term: "pnpm",
+    aliases: [],
+    category: "Verktøy",
+    description:
+      'Pakkehåndterer som bruker "content-addressed store" for kjappe installs og effektiv deling mellom prosjekter.',
+    description_en:
+      "Package manager that uses a content-addressed store for fast installs and efficient sharing across projects.",
+    link: "https://pnpm.io/",
+  },
+  {
+    term: "Barrel file",
+    aliases: ["index.ts", "index.js", "Re-exports"],
+    category: "JavaScript",
+    description:
+      "En samlingsfil som re-eksporterer fra flere moduler for enklere importer (f.eks. `export * from './Button'`).",
+    description_en:
+      "A file that re-exports from multiple modules to simplify imports (e.g., `export * from './Button'`).",
+    example: `// index.ts\nexport * from './Button';\nexport * from './Input';`,
+    link: "https://basarat.gitbook.io/typescript/main-1/barrel",
+  },
+  {
+    term: "Design Tokens",
+    aliases: ["Tokens"],
+    category: "CSS",
+    description:
+      "Navngitte, teknologiuavhengige designverdier (farger, spacing, typografi) som kan brukes på tvers av apper.",
+    description_en:
+      "Named, tech-agnostic design values (colors, spacing, typography) reusable across apps.",
+    link: "https://tr.designtokens.org/",
+  },
+  {
+    term: "Environment Variables",
+    aliases: [".env", "Miljøvariabler"],
+    category: "DevOps",
+    description:
+      "Nøkkel/verdi-par for konfigurasjon per miljø (lokalt, staging, prod). Sjekkes ikke inn i Git.",
+    description_en:
+      "Key/value pairs for per-environment configuration (local, staging, prod). Not committed to Git.",
+    example: `# .env\nAPI_URL=https://api.example.com\nNODE_ENV=production`,
+    link: "https://12factor.net/config",
+  },
+  {
+    term: "Separation of Concerns",
+    aliases: ["SoC", "Separasjon av ansvar"],
+    category: "Arkitektur",
+    description:
+      "Del opp kode etter ansvar (presentasjon vs. logikk) for enklere vedlikehold og testing.",
+    description_en:
+      "Split code by responsibility (presentation vs. logic) for easier maintenance and testing.",
+    link: "https://developer.mozilla.org/en-US/docs/Glossary/Separation_of_concerns",
+  },
+  {
+    term: "Layered Architecture",
+    aliases: ["Lagdeling", "Dependency rule", "Import direction"],
+    category: "Arkitektur",
+    description:
+      "Struktur der høyere lag kan importere lavere, men ikke motsatt (f.eks. UI → hooks → lib).",
+    description_en:
+      "Structure where upper layers may import lower ones, but not the other way around (e.g., UI → hooks → lib).",
+  },
+  {
+    term: "EditorConfig",
+    aliases: [],
+    category: "Verktøy",
+    description:
+      "Standardiserer editor-oppførsel på tvers av team (linjeavslutning, innrykk, trailing whitespace).",
+    description_en:
+      "Standardizes editor behavior across a team (line endings, indentation, trailing whitespace).",
+    link: "https://editorconfig.org/",
+  },
 ];

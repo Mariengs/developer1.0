@@ -5,6 +5,9 @@ import Nav from "./components/Nav/Nav.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import PageLoader from "./components/Spinner/PageLoader.jsx";
+import SkipLink from "./SkipLink.jsx";
+import FocusOnRouteChange from "./FocusOnRouteChange.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 
 // Lazy-load sider
 const HomePage = lazy(() => import("./pages/Home/HomePage.jsx"));
@@ -43,22 +46,29 @@ export default function App() {
     <I18nProvider>
       <Router>
         <div className="app-shell">
+          <SkipLink />
           <ScrollToTop />
           <Nav theme={theme} setTheme={setTheme} />
-          <main id="main">
-            <Suspense fallback={<PageLoader label="Loading" />}>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/dictionary" element={<MyDictionary />} />
-                <Route path="/vscode" element={<VSCode />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/feedback" element={<Feedback />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </main>
+          <FocusOnRouteChange />
+
+          <ErrorBoundary>
+            <main id="main" tabIndex="-1">
+              <Suspense fallback={<PageLoader label="Loading" />}>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/dictionary" element={<MyDictionary />} />
+                  <Route path="/vscode" element={<VSCode />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/feedback" element={<Feedback />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </main>
+          </ErrorBoundary>
+
+          {/* ✨ Flyttet hit, inne i .app-shell */}
+          <Footer />
         </div>
-        <Footer />
       </Router>
     </I18nProvider>
   );

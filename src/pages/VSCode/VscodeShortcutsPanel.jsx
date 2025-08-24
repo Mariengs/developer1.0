@@ -87,11 +87,20 @@ export default function ShortcutsPanel() {
       {/* Table */}
       <div className={styles.tableWrap}>
         <table className={styles.table}>
+          <caption className="sr-only">
+            {t("shortcuts.table.caption") || "VSCode keyboard shortcuts"}
+          </caption>
           <thead className={styles.thead}>
             <tr>
-              <th className={styles.th}>{t("shortcuts.table.action")}</th>
-              <th className={styles.th}>{t("shortcuts.table.keys")}</th>
-              <th className={styles.th}>{t("shortcuts.table.category")}</th>
+              <th scope="col" className={styles.th}>
+                {t("shortcuts.table.action")}
+              </th>
+              <th scope="col" className={styles.th}>
+                {t("shortcuts.table.keys")}
+              </th>
+              <th scope="col" className={styles.th}>
+                {t("shortcuts.table.category")}
+              </th>
             </tr>
           </thead>
           <tbody>

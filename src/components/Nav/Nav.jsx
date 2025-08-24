@@ -1,95 +1,52 @@
-import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { I18nContext } from "../../i18n/I18nContext.js";
-import ThemeToggle from "../dictionary/ThemeToggle.jsx"; // sjekk casing/sti
+import ThemeToggle from "../dictionary/ThemeToggle.jsx";
 import LanguageToggle from "../LanguageToggle/LanguageToggle.jsx";
 import logo from "../../assets/logo.svg";
+import styles from "./Nav.module.css";
 
 export default function Nav({ theme, setTheme }) {
-  const { t } = useContext(I18nContext);
-
-  const baseItemStyle = {
-    padding: "6px 10px",
-    borderRadius: 8,
-    textDecoration: "none",
-    color: "var(--text)",
-  };
-
   return (
-    <nav
-      style={{
-        display: "flex",
-        gap: 16,
-        alignItems: "center",
-        padding: "12px 16px",
-        borderBottom: "1px solid var(--card-border)",
-        background: "var(--surface)",
-      }}
-      aria-label="Main"
-    >
-      {/* Logo = Home */}
-      <Link
-        to="/"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          fontWeight: 700,
-          color: "var(--text)",
-          textDecoration: "none",
-          marginRight: "auto",
-        }}
-      >
-        <img
-          src={logo}
-          alt="Developer Help"
-          width={28}
-          height={28}
-          style={{ display: "block" }}
-        />
+    <nav className={styles.nav} aria-label="nav.label">
+      {/* Logo / brand */}
+      <Link to="/" className={styles.brand}>
+        <img src={logo} alt="Developer Help" />
         <span>Developer Help</span>
       </Link>
 
-      {/* Home */}
-      <NavLink
-        to="/"
-        end
-        style={({ isActive }) => ({
-          ...baseItemStyle,
-          background: isActive ? "var(--surface-2)" : "transparent",
-        })}
-      >
-        {t("nav.home")}
-      </NavLink>
+      {/* Lenker + toggles (wrap’er på mobil) */}
+      <div className={styles.links}>
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) =>
+            isActive ? `${styles.item} ${styles.itemActive}` : styles.item
+          }
+        >
+          Home
+        </NavLink>
 
-      {/* Dictionary */}
-      <NavLink
-        to="/dictionary"
-        style={({ isActive }) => ({
-          ...baseItemStyle,
-          background: isActive ? "var(--surface-2)" : "transparent",
-        })}
-      >
-        {t("nav.dictionary")}
-      </NavLink>
+        <NavLink
+          to="/dictionary"
+          className={({ isActive }) =>
+            isActive ? `${styles.item} ${styles.itemActive}` : styles.item
+          }
+        >
+          Dictionary
+        </NavLink>
 
-      {/* VSCode */}
-      <NavLink
-        to="/vscode"
-        style={({ isActive }) => ({
-          ...baseItemStyle,
-          background: isActive ? "var(--surface-2)" : "transparent",
-        })}
-      >
-        {t("nav.vscode")}
-      </NavLink>
+        <NavLink
+          to="/vscode"
+          className={({ isActive }) =>
+            isActive ? `${styles.item} ${styles.itemActive}` : styles.item
+          }
+        >
+          VSCode
+        </NavLink>
 
-      {/* Toggles */}
-      <div
-        style={{ display: "flex", alignItems: "center", gap: 8, marginLeft: 8 }}
-      >
-        <ThemeToggle theme={theme} setTheme={setTheme} />
-        <LanguageToggle />
+        <div className={styles.controls}>
+          <ThemeToggle theme={theme} setTheme={setTheme} />
+          <LanguageToggle />
+        </div>
       </div>
     </nav>
   );
