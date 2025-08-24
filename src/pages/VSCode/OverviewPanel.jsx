@@ -1,13 +1,13 @@
-import { useContext, useEffect } from "react";
-import { I18nContext } from "../../i18n/I18nContext.js";
+import { useEffect } from "react";
+import { useI18n } from "../../i18n/useI18n.js";
 import CodeBlock from "../../components/Code/CodeBlock.jsx";
 import styles from "./OverviewPanel.module.css";
 
 export default function OverviewPanel() {
-  const { t } = useContext(I18nContext);
+  const { t } = useI18n();
 
   useEffect(() => {
-    document.title = t("vscode.title");
+    document.title = t("vscode.title") || "VSCode";
   }, [t]);
 
   return (

@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { I18nContext } from "../../i18n/I18nContext.js";
+import { useI18n } from "../../i18n/useI18n.js";
 import VscodeShortcutsPanel from "./VscodeShortcutsPanel.jsx";
 import OverviewPanel from "./OverviewPanel.jsx";
 import ProjectStructurePanel from "./ProjectStructurePanel.jsx";
 import styles from "./VSCode.module.css";
 
 export default function VSCode() {
-  const { t } = useContext(I18nContext);
+  const { t } = useI18n();
   const [tab, setTab] = useState("overview");
   const [params, setParams] = useSearchParams();
 
   useEffect(() => {
-    document.title = t("vscode.title");
+    document.title = t("vscode.title") || "VSCode";
   }, [t]);
 
   useEffect(() => {

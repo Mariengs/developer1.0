@@ -1,5 +1,5 @@
-import { useContext, useMemo, useState } from "react";
-import { I18nContext } from "../../i18n/I18nContext.js";
+import { useMemo, useState } from "react";
+import { useI18n } from "../../i18n/useI18n.js";
 import { SHORTCUTS } from "./shortcuts.data.js";
 import styles from "./VSCodeShortcutsPanel.module.css";
 
@@ -12,8 +12,8 @@ function detectPlatform() {
   return "linux";
 }
 
-export default function ShortcutsPanel() {
-  const { t } = useContext(I18nContext);
+export default function VscodeShortcutsPanel() {
+  const { t } = useI18n();
   const [platform, setPlatform] = useState(detectPlatform);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");

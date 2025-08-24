@@ -1,14 +1,13 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { I18nContext } from "../../i18n/I18nContext.js";
+import { useI18n } from "../../i18n/useI18n.js";
 import styles from "./HomePage.module.css";
 
 export default function HomePage() {
-  const { t } = useContext(I18nContext);
+  const { t } = useI18n();
 
   useEffect(() => {
-    // Valgfritt: oppdater dokumenttittel pr. språk
-    document.title = t("home.title");
+    document.title = t("home.title") || "Home";
   }, [t]);
 
   return (

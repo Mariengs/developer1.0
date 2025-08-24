@@ -1,12 +1,12 @@
-import { useContext, useEffect } from "react";
-import { I18nContext } from "../../i18n/I18nContext.js";
+import { useEffect } from "react";
+import { useI18n } from "../../i18n/useI18n.js";
 import styles from "./Feedback.module.css";
 
 export default function Feedback() {
-  const { t } = useContext(I18nContext);
+  const { t } = useI18n();
 
   useEffect(() => {
-    document.title = t("feedback.title");
+    document.title = t("feedback.title") || "Feedback";
   }, [t]);
 
   return (
