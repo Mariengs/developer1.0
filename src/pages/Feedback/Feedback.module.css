@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 2rem 1rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem) 1rem;
   display: grid;
   place-items: center;
 }
@@ -11,7 +11,13 @@
   border: 1px solid var(--card-border);
   border-radius: 16px;
   box-shadow: 0 0 0 1px var(--ring) inset;
-  padding: 1.5rem;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+/* Fremhev kort når noe inni får fokus via tastatur */
+.card:focus-within {
+  box-shadow: 0 0 0 1px var(--ring) inset, 0 0 0 3px var(--ring);
 }
 
 .title {
@@ -25,6 +31,7 @@
   margin: 0 0 1rem;
   color: var(--muted);
   line-height: 1.6;
+  max-width: 65ch; /* behagelig linjelengde */
 }
 
 .list {
@@ -52,20 +59,63 @@
   text-decoration: none;
   font-weight: 600;
   transition: transform 120ms ease, background 160ms ease,
-    border-color 160ms ease;
+    border-color 160ms ease, box-shadow 120ms ease, outline-color 0s; /* unngå blink */
 }
 
+/* Hover: liten løft og bittelitt lysere */
 .button:hover {
   transform: translateY(-1px);
+  background: color-mix(in oklab, var(--accent) 90%, #fff 10%);
 }
 
+/* Active: tilbake på plass og litt mørkere */
 .button:active {
   transform: translateY(0);
+  background: color-mix(in oklab, var(--accent) 80%, #000 20%);
+}
+
+/* Tastaturfokus – tydelig ring */
+.button:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--accent) 50%, #fff 50%);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* Disabled-tilstand (hvis du bruker den) */
+.button[aria-disabled="true"],
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Ikonjustering hvis lenka får et SVG-ikon senere */
+.button > svg {
+  inline-size: 1.1em;
+  block-size: 1.1em;
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .button {
     transition: none;
+  }
+}
+
+/* High-contrast / Windows forced colors */
+@media (forced-colors: active) {
+  .card {
+    border-color: CanvasText;
+    box-shadow: none;
+  }
+  .button {
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+    border-color: ButtonText;
+  }
+  .button:focus-visible {
+    outline: 2px solid Highlight;
+    box-shadow: none;
   }
 }
