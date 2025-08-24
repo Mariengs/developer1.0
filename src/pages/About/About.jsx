@@ -1,30 +1,38 @@
-import { useContext, useEffect } from "react";
-import { I18nContext } from "../../i18n/I18nContext.js";
+// src/pages/About/About.jsx
+import { useEffect } from "react";
+import { useI18n } from "../../i18n/useI18n.js";
 
 export default function About() {
-  const { t } = useContext(I18nContext);
+  const { t } = useI18n();
 
   useEffect(() => {
-    document.title = t("about.title");
+    document.title = t("about.title") || "About";
   }, [t]);
 
   return (
-    <section style={{ padding: "2rem 1rem", maxWidth: 900, margin: "0 auto" }}>
-      <h1>{t("about.title")}</h1>
-      <p>{t("about.lead")}</p>
-      <h2>{t("about.sections.features")}</h2>
+    <section
+      aria-labelledby="about-title"
+      style={{ padding: "2rem 1rem", maxWidth: 900, margin: "0 auto" }}
+    >
+      <h1 id="about-title">{t("about.title") || "About"}</h1>
+      <p style={{ color: "var(--muted)" }}>
+        {t("about.lead") || "About this project."}
+      </p>
+
+      <h2>{t("about.sections.features") || "Features"}</h2>
       <ul>
-        <li>{t("about.features.dictionary")}</li>
-        <li>{t("about.features.vscode")}</li>
-        <li>{t("about.features.i18n")}</li>
+        <li>{t("about.features.dictionary") || "Interactive dictionary"}</li>
+        <li>{t("about.features.vscode") || "VSCode setup & shortcuts"}</li>
+        <li>{t("about.features.i18n") || "NO/EN localization"}</li>
       </ul>
+
       <p>
         <a
           href="https://github.com/Mariengs/developer1.0"
           target="_blank"
           rel="noreferrer"
         >
-          {t("about.link.repo")}
+          {t("about.link.repo") || "View the repository on GitHub"}
         </a>
       </p>
     </section>
